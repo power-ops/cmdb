@@ -11,22 +11,31 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import configparser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+if not os.path.isfile(os.path.join(BASE_DIR, 'config.ini')):
+    print("Please create config.ini first")
+    exit(1)
+config = configparser.ConfigParser()
+config.read(os.path.join(BASE_DIR, 'config.ini'))
+
+if 'DJANGO' not in config:
+    exit(1)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5q&2ro06oxnhl-f8%(_3p*o=cy97u-4m=c8^v0)ve@2a_k4zyl'
+SECRET_KEY = config.get('DJANGO', 'SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.getboolean('DJANGO', 'DEBUG')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = list(filter(None, str.split(config.get('DJANGO', 'ALLOWED_HOSTS', fallback=''), ',')))
+ALLOWED_HOSTS.append('127.0.0.1')
 
 # Application definition
 
@@ -37,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'utils',
+    'asset'
 ]
 
 MIDDLEWARE = [
@@ -69,17 +80,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cmdb.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DATABASE_DEFAULT = config.get('DJANGO', 'DATABASE_DEFAULT')
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': config.get('DATABASE:' + DATABASE_DEFAULT, 'ENGINE', fallback='django.db.backends.sqlite3'),
+        'NAME': config.get('DATABASE:' + DATABASE_DEFAULT, 'NAME', fallback='db.sqlite3'),
+        'USER': config.get('DATABASE:' + DATABASE_DEFAULT, 'USER', fallback=''),
+        'PASSWORD': config.get('DATABASE:' + DATABASE_DEFAULT, 'PASSWORD', fallback=''),
+        'HOST': config.get('DATABASE:' + DATABASE_DEFAULT, 'HOST', fallback=''),
+        'PORT': config.get('DATABASE:' + DATABASE_DEFAULT, 'PORT', fallback=''),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -99,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -113,8 +126,23 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+if DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+LOGIN_URL = '/login'
+
+DJANGO_TITLE = config.get('DJANGO', 'TITLE', fallback='JUMP')
+
+SM4_VI = config.get('DJANGO', 'SM4_VI')
+
+PASSWORD_HASHERS = [
+    'utils.hashers.SM3PasswordHasher',
+]

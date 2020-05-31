@@ -1,0 +1,13 @@
+{% if Assets %}
+    <ul>
+        {% for asset,systemUsers in Assets.items %}
+            <li>{{ asset.hostname }}
+                {% for systemUser in systemUsers %}
+                    <a href="#">{{ systemUser.Username }}</a>
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
