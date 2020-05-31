@@ -43,5 +43,5 @@ class Label(MixinModel):
         return "{}:{}".format(self.Name, self.Value)
 
     class Meta:
-        # db_table = "assets_label"
-        unique_together = [('Name', 'Value')]
+        verbose_name = _('Label')
+        verbose_name_plural = _('Label')

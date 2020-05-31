@@ -40,6 +40,10 @@ class Asset(MixinModel):
 
     objects = AssetManager()
 
+    class Meta:
+        verbose_name = _('Asset')
+        verbose_name_plural = _('Asset')
+
     def get_protocols(self):
         return [p.__str__() for p in self.Protocols.all()]
 

@@ -32,4 +32,4 @@ class Platform(MixinModel):
 
     class Meta:
         verbose_name = _("Platform")
-        # ordering = ('name',)
+        verbose_name_plural = _('Platform')

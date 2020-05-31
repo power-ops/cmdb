@@ -17,20 +17,12 @@ class SystemUserManager(models.Manager):
 
 
 class SystemUser(MixinModel):
-    BASE_CHOICES = (
-        ('empty', 'empty'),
-        ('create_pwd', 'create_pwd'),
-        ('create_key', 'create_key'),
-        ('inherit', 'inherit'),
-    )
     Name = models.CharField(_('Name'), max_length=64, unique=True)
     Username = models.CharField(_('Username'), max_length=64)
     Password = models.TextField(_('Password'), null=True)
     LastPassword = models.TextField(_('Last Password'), null=True, default="")
     Key = models.BinaryField(_('Key'), null=True, default=None)
     Protocol = models.CharField(max_length=16, verbose_name=_('Protocol'))
-    Jid = models.CharField(max_length=64, verbose_name=_('jid'), null=True, default="")
-    Type = models.CharField(choices=BASE_CHOICES, max_length=16, default="empty")
     objects = SystemUserManager()
 
     def __str__(self):
@@ -41,29 +33,6 @@ class SystemUser(MixinModel):
             self.LastPassword = self.Password
         self.Password = password
         self.save()
-
-    def me(self, Username, domain=None):
-        if domain:
-            Username = Username + "@" + domain
-        SU = SystemUser.objects.filter(Name=self.Name + "_U:" + Username + '_P:' + self.Protocol).first()
-        if not SU:
-            SU = SystemUser.objects.create(
-                Name=self.Name + "_U:" + Username + '_P:' + self.Protocol,
-                Username=Username,
-                Protocol=self.Protocol,
-                Type=self.Type
-            )
-            if self.Type == "empty":
-                pass
-            elif self.Type == "create_pwd":
-                SU.Password = encrypt_ecb(gen())
-            elif self.Type == "create_key":
-                SU.Key = ""  # todo
-            elif self.Type == "inherit":
-                SU.Password = self.Password
-                SU.Key = self.Key
-            SU.save()
-        return SU
 
     def json(self):
         return {
@@ -92,6 +61,5 @@ class SystemUser(MixinModel):
             return decrypt_ecb(self.Password)
 
     class Meta:
-        # db_table = 'SystemUser'
-        verbose_name = _('SystemUser')
-        verbose_name_plural = _('SystemUser')
+        verbose_name = _('System User')
+        verbose_name_plural = _('System User')

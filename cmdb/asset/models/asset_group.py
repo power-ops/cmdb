@@ -25,5 +25,9 @@ class AssetGroup(MixinModel):
 
     objects = AssetGroupManager()
 
+    class Meta:
+        verbose_name = _('Asset Group')
+        verbose_name_plural = _('Asset Group')
+
     def __str__(self):
         return self.Name

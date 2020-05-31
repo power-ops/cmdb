@@ -26,7 +26,6 @@ class Protocol(MixinModel):
         return self.Name + '/' + str(self.Port)
 
     class Meta:
-        # db_table = 'Protocol'
         verbose_name = _('Protocol')
         verbose_name_plural = _('Protocol')
 

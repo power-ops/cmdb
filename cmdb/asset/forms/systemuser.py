@@ -12,11 +12,10 @@ class SystemUserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(SystemUserForm, self).__init__(*args, **kwargs)
         self.fields['Protocol'].widget.choices = Protocol.objects.values_list('Protocol', 'Protocol').distinct()
-        self.fields['Type'].required = False
 
     class Meta:
         model = SystemUser
-        fields = ['Name', 'Username', 'Password', 'KeyFile', 'Protocol', 'Type', 'Jid', 'Enabled']
+        fields = ['Name', 'Username', 'Password', 'KeyFile', 'Protocol', 'Enabled']
 
     def save(self, commit=True):
         instance = super(SystemUserForm, self).save(commit=False)

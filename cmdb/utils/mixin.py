@@ -6,7 +6,7 @@ import uuid
 
 class MixinModel(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    Enabled = models.BooleanField(default=True)
+    Enabled = models.BooleanField(_('Enabled'), default=True)
     CreateDate = models.DateTimeField(_('Create Date'), default=timezone.now)
 
     def disable(self):

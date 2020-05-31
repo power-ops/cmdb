@@ -34,6 +34,5 @@ class Permission(MixinModel):
         return self.Name
 
     class Meta:
-        # db_table = 'Permission'
         verbose_name = _('Permission')
         verbose_name_plural = _('Permission')

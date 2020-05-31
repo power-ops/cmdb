@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-01 06:57+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: asset/apps.py:7 asset/models/asset.py:44 asset/models/asset.py:45
+msgid "Asset"
+msgstr "资产"
+
+#: asset/forms/systemuser.py:10
+msgid "KeyFile"
+msgstr "密钥文件"
+
+#: asset/models/asset.py:29
+msgid "IP"
+msgstr "IP"
+
+#: asset/models/asset.py:30
+msgid "Hostname"
+msgstr "主机名"
+
+#: asset/models/asset.py:31 asset/models/protocol.py:20
+#: asset/models/protocol.py:29 asset/models/protocol.py:30
+#: asset/models/systemuser.py:25
+msgid "Protocol"
+msgstr "协议"
+
+#: asset/models/asset.py:33 asset/models/platform.py:34
+#: asset/models/platform.py:35
+msgid "Platform"
+msgstr "平台"
+
+#: asset/models/asset.py:34
+msgid "Public IP"
+msgstr "公网IP"
+
+#: asset/models/asset.py:35
+msgid "Asset number"
+msgstr "资产号"
+
+#: asset/models/asset.py:37
+msgid "Labels"
+msgstr "标签"
+
+#: asset/models/asset.py:38
+msgid "Created by"
+msgstr "创建者"
+
+#: asset/models/asset.py:39 asset/models/label.py:33 asset/models/platform.py:8
+msgid "Comment"
+msgstr "备注"
+
+#: asset/models/asset.py:50
+msgid "Protocols"
+msgstr "协议"
+
+#: asset/models/asset_group.py:23 asset/models/label.py:29
+#: asset/models/perms.py:24 asset/models/platform.py:7
+#: asset/models/protocol.py:19 asset/models/systemuser.py:20
+msgid "Name"
+msgstr "名称"
+
+#: asset/models/asset_group.py:24
+msgid "Assets"
+msgstr "资产"
+
+#: asset/models/asset_group.py:29 asset/models/asset_group.py:30
+msgid "Asset Group"
+msgstr "资产组"
+
+#: asset/models/label.py:30
+msgid "Value"
+msgstr ""
+
+#: asset/models/label.py:46 asset/models/label.py:47
+msgid "Label"
+msgstr "标签"
+
+#: asset/models/perms.py:37 asset/models/perms.py:38
+msgid "Permission"
+msgstr "权限"
+
+#: asset/models/protocol.py:21
+msgid "Port"
+msgstr "端口"
+
+#: asset/models/systemuser.py:21
+msgid "Username"
+msgstr "用户名"
+
+#: asset/models/systemuser.py:22
+msgid "Password"
+msgstr "密码"
+
+#: asset/models/systemuser.py:23
+msgid "Last Password"
+msgstr "历史密码"
+
+#: asset/models/systemuser.py:24
+msgid "Key"
+msgstr "密钥"
+
+#: asset/models/systemuser.py:64 asset/models/systemuser.py:65
+msgid "System User"
+msgstr "系统用户"
+
+#: utils/mixin.py:9
+msgid "Enabled"
+msgstr "启用"
+
+#: utils/mixin.py:10
+msgid "Create Date"
+msgstr "创建日期"
