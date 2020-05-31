@@ -144,5 +144,5 @@ DJANGO_TITLE = config.get('DJANGO', 'TITLE', fallback='JUMP')
 SM4_VI = config.get('DJANGO', 'SM4_VI')
 
 PASSWORD_HASHERS = [
-    'utils.hashers.SM3PasswordHasher',
+    'utils.hashers.PBKDF2SM3PasswordHasher',
 ]
