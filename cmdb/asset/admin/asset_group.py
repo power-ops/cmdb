@@ -1,9 +1,10 @@
 from django.contrib import admin
-from asset import forms
+from asset import forms, models
+from reversion.admin import VersionAdmin
 
 
-# Register your models here.
-class AssteGroupAdmin(admin.ModelAdmin):
+@admin.register(models.AssetGroup)
+class AssteGroupAdmin(VersionAdmin):
     list_display = ('Name', 'Enabled', 'CreateDate')
     form = forms.AssetForm
     readonly_fields = ('CreateDate',)

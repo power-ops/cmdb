@@ -1,7 +1,10 @@
 from django.contrib import admin
+from asset import models
+from reversion.admin import VersionAdmin
 
 
-class LabelsAdmin(admin.ModelAdmin):
+@admin.register(models.Label)
+class LabelsAdmin(VersionAdmin):
     fields = ['Name', 'Value', 'Enabled', 'CreateDate']
     readonly_fields = ['CreateDate']
     list_display = ['Name', 'Value', 'Enabled', 'CreateDate']
