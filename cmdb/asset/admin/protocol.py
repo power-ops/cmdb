@@ -7,5 +7,5 @@ class ProtocolAdmin(admin.ModelAdmin):
     readonly_fields = ['CreateDate']
     list_display = ['Name', 'Protocol', 'Port', 'Enabled', 'CreateDate']
 
-    def has_add_permission(self, request):
-        return True
+    # def has_add_permission(self, request):
+    #     return True

@@ -6,5 +6,5 @@ class LabelsAdmin(admin.ModelAdmin):
     readonly_fields = ['CreateDate']
     list_display = ['Name', 'Value', 'Enabled', 'CreateDate']
 
-    def has_add_permission(self, request):
-        return True
+    # def has_add_permission(self, request):
+    #     return True

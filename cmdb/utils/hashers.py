@@ -1,7 +1,8 @@
-from django.contrib.auth.hashers import BasePasswordHasher
+from django.contrib.auth.hashers import BasePasswordHasher, mask_hash
 import base64
 from gmssl import sm3, func
 from django.utils.crypto import constant_time_compare, pbkdf2
+from django.utils.translation import gettext_noop as _
 
 
 class sm3digest(object):
@@ -31,3 +32,13 @@ class PBKDF2SM3PasswordHasher(BasePasswordHasher):
         assert algorithm == self.algorithm
         encoded_2 = self.encode(password, salt, int(iterations))
         return constant_time_compare(encoded, encoded_2)
+
+    def safe_summary(self, encoded):
+        algorithm, iterations, salt, hash = encoded.split('$', 3)
+        assert algorithm == self.algorithm
+        return {
+            _('algorithm'): algorithm,
+            _('iterations'): iterations,
+            _('salt'): mask_hash(salt),
+            _('hash'): mask_hash(hash),
+        }
