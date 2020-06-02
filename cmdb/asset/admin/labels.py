@@ -38,11 +38,11 @@ class LabelsAdmin(VersionAdmin):
         """
         qs = self.model._default_manager.get_queryset()
         if request.user.has_perm('asset.view_self_assets') and not request.user.has_perm('label.view_label'):
-            Label = []
+            List = []
             for res in getSelfAssets(request):
-                Label += list(res.Labels.values_list('uuid', flat=True))
-                Label = list(set(Label))
-            qs = qs.filter(uuid__in=Label)
+                List += list(res.Labels.values_list('uuid', flat=True))
+            List = list(set(List))
+            qs = qs.filter(uuid__in=List)
         ordering = self.get_ordering(request)
         if ordering:
             qs = qs.order_by(*ordering)

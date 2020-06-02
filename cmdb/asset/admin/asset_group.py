@@ -40,13 +40,12 @@ class AssteGroupAdmin(VersionAdmin):
         """
         qs = self.model._default_manager.get_queryset()
         if request.user.has_perm('asset.view_self_assets') and not request.user.has_perm('assetgroup.view_asset'):
-            AssetGroup = []
+            List = []
             for res in Permission.objects.filter(
                 Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(User=request.user.id)):
-                for assetGroup in res.AssetGroup.all():
-                    if assetGroup.uuid not in AssetGroup:
-                        AssetGroup.append(assetGroup.uuid)
-            qs = qs.filter(uuid__in=AssetGroup)
+                List += list(res.AssetGroup.values_list('uuid', flat=True))
+            List = list(set(List))
+            qs = qs.filter(uuid__in=List)
         ordering = self.get_ordering(request)
         if ordering:
             qs = qs.order_by(*ordering)
