@@ -21,7 +21,7 @@ class AssetGroupSerializer(serializers.ModelSerializer):
 
 class AssetGroupViewSet(APIView):
     serializer_class = AssetGroupSerializer
-    http_method_names = ['options', 'head', 'get']
+    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:

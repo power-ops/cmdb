@@ -43,8 +43,8 @@ if settings.DEBUG:
             contact=openapi.Contact(email="liuzheng712@gmail.com"),
             license=openapi.License(name="GPLv2.0 License"),
         ),
-        public=True,
-        permission_classes=(permissions.AllowAny,),
+        public=False,
+        permission_classes=(permissions.IsAuthenticated,),
     )
     urlpatterns += [
         url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),

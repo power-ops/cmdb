@@ -20,7 +20,7 @@ class AssetSerializer(serializers.ModelSerializer):
 
 class AssetViewSet(APIView):
     serializer_class = AssetSerializer
-    http_method_names = ['options', 'head', 'get']
+    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:

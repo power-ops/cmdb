@@ -19,7 +19,7 @@ class PermissionSerializer(serializers.ModelSerializer):
 
 class PermissionViewSet(APIView):
     serializer_class = PermissionSerializer
-    http_method_names = ['options', 'head', 'get']
+    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
