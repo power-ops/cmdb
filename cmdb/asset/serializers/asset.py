@@ -37,7 +37,7 @@ class AssetViewSet(APIView):
         if 'delete' not in self.http_method_names and request.user.has_perm('asset.delete_asset'):
             self.http_method_names.append("delete")
 
-    @admin.api_permission('asset.view_self_assets')
+    @admin.api_permission('asset.view_self_assets', 'asset.view_asset')
     def get(self, request, format=None):
         self.http_methods(request)
         if request.user.has_perm('asset.view_assets'):

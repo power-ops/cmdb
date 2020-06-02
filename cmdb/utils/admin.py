@@ -17,11 +17,12 @@ def has_permission(perm: str):
     return decorator
 
 
-def api_permission(perm: str):
+def api_permission(*perms: str):
     def decorator(func):
         def wrapper(api, request, *args, **kwargs):
-            if request.user.has_perm(perm):
-                return func(api, request, *args, **kwargs)
+            for perm in perms:
+                if request.user.has_perm(perm):
+                    return func(api, request, *args, **kwargs)
             return HttpResponseForbidden('You DO NOT have this api permission, Please contact your administrator')
 
         return wrapper
