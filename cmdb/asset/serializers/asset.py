@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
 from asset.views import getSelfAssets
+from rest_framework.request import Request
 
 
 class AssetSerializer(serializers.ModelSerializer):
@@ -18,17 +19,36 @@ class AssetSerializer(serializers.ModelSerializer):
 
 
 class AssetViewSet(APIView):
-    # queryset = Asset.objects.all()
     serializer_class = AssetSerializer
-
-    # http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']
-    # http_method_names = ['options', 'head', 'get']
+    http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
             return Asset.objects.get(pk=pk)
         except Asset.DoesNotExist:
             raise Http404
+
+    def http_methods(self, request):
+        if 'post' not in self.http_method_names and request.user.has_perm('asset.add_asset'):
+            self.http_method_names.append("post")
+        if 'put' not in self.http_method_names and request.user.has_perm('asset.change_asset'):
+            self.http_method_names.append("put")
+        if 'delete' not in self.http_method_names and request.user.has_perm('asset.delete_asset'):
+            self.http_method_names.append("delete")
+
+    def initialize_request(self, request, *args, **kwargs):
+        """
+        Returns the initial request object.
+        """
+        self.http_methods(request)
+        parser_context = self.get_parser_context(request)
+        return Request(
+            request,
+            parsers=self.get_parsers(),
+            authenticators=self.get_authenticators(),
+            negotiator=self.get_content_negotiator(),
+            parser_context=parser_context
+        )
 
     @admin.api_permission('asset.view_self_assets', 'asset.view_asset')
     def get(self, request, format=None):

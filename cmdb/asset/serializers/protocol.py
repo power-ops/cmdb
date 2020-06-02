@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from asset.models import Label
+from asset.models import Protocol
 from utils import admin
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,32 +9,32 @@ from asset.views import getSelfAssets
 from rest_framework.request import Request
 
 
-class LabelSerializer(serializers.ModelSerializer):
+class ProtocolSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     CreateDate = serializers.CharField(read_only=True)
 
     class Meta:
-        model = Label
+        model = Protocol
         fields = '__all__'
 
 
-class LabelViewSet(APIView):
-    serializer_class = LabelSerializer
+class ProtocolViewSet(APIView):
+    serializer_class = ProtocolSerializer
     http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
-            return Label.objects.get(pk=pk)
-        except Label.DoesNotExist:
+            return Protocol.objects.get(pk=pk)
+        except Protocol.DoesNotExist:
             raise Http404
 
     def http_methods(self, request):
         self.http_method_names = ['options', 'head', 'get']
-        if 'post' not in self.http_method_names and request.user.has_perm('label.add_label'):
+        if 'post' not in self.http_method_names and request.user.has_perm('protocol.add_protocol'):
             self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('label.change_label'):
+        if 'put' not in self.http_method_names and request.user.has_perm('protocol.change_protocol'):
             self.http_method_names.append("put")
-        if 'delete' not in self.http_method_names and request.user.has_perm('label.delete_label'):
+        if 'delete' not in self.http_method_names and request.user.has_perm('protocol.delete_protocol'):
             self.http_method_names.append("delete")
 
     def initialize_request(self, request, *args, **kwargs):
@@ -51,38 +51,38 @@ class LabelViewSet(APIView):
             parser_context=parser_context
         )
 
-    @admin.api_permission('label.view_label', 'asset.view_self_assets')
+    @admin.api_permission('protocol.view_protocol', 'asset.view_self_assets')
     def get(self, request, format=None):
-        if request.user.has_perm('label.view_label'):
-            queryset = Label.objects.all()
-            serializer = LabelSerializer(queryset, many=True)
+        if request.user.has_perm('protocol.view_protocol'):
+            queryset = Protocol.objects.all()
+            serializer = ProtocolSerializer(queryset, many=True)
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
             for res in getSelfAssets(request):
-                queryset += list(res.Labels.all())
+                queryset += list(res.Protocols.all())
             queryset = list(set(queryset))
-            serializer = LabelSerializer(queryset, many=True)
+            serializer = ProtocolSerializer(queryset, many=True)
             return Response(serializer.data)
 
-    @admin.api_permission('label.add_label')
+    @admin.api_permission('protocol.add_protocol')
     def post(self, request, format=None):
-        serializer = LabelSerializer(data=request.data)
+        serializer = ProtocolSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @admin.api_permission('label.change_label')
+    @admin.api_permission('protocol.change_protocol')
     def put(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = LabelSerializer(snippet, data=request.data)
+        serializer = ProtocolSerializer(snippet, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @admin.api_permission('label.delete_label')
+    @admin.api_permission('protocol.delete_protocol')
     def delete(self, request, pk, format=None):
         snippet = self.get_object(pk)
         snippet.delete()
