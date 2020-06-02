@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-01 21:02+0800\n"
+"POT-Creation-Date: 2020-06-02 18:27+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,7 +65,7 @@ msgstr "创建者"
 msgid "Comment"
 msgstr "备注"
 
-#: asset/models/asset.py:50
+#: asset/models/asset.py:51
 msgid "Protocols"
 msgstr "协议"
 
@@ -123,6 +123,73 @@ msgstr "系统用户"
 msgid "Audits"
 msgstr "审计"
 
+#: utils/authentication.py:56
+msgid "Invalid signature header. No credentials provided."
+msgstr ""
+
+#: utils/authentication.py:59
+msgid "Invalid signature header. Signature string should not contain spaces."
+msgstr ""
+
+#: utils/authentication.py:66
+msgid "Invalid signature header. Format like AccessKeyId:Signature"
+msgstr ""
+
+#: utils/authentication.py:70
+msgid ""
+"Invalid signature header. Signature string should not contain invalid "
+"characters."
+msgstr ""
+
+#: utils/authentication.py:90 utils/authentication.py:106
+msgid "Invalid signature."
+msgstr ""
+
+#: utils/authentication.py:97
+msgid "HTTP header: Date not provide or not %a, %d %b %Y %H:%M:%S GMT"
+msgstr ""
+
+#: utils/authentication.py:102
+msgid "Expired, more than 15 minutes"
+msgstr ""
+
+#: utils/authentication.py:109
+msgid "User disabled."
+msgstr ""
+
+#: utils/authentication.py:124
+msgid "Invalid token header. No credentials provided."
+msgstr ""
+
+#: utils/authentication.py:127
+msgid "Invalid token header. Sign string should not contain spaces."
+msgstr ""
+
+#: utils/authentication.py:134
+msgid ""
+"Invalid token header. Sign string should not contain invalid characters."
+msgstr ""
+
+#: utils/authentication.py:145
+msgid "Invalid token or cache refreshed."
+msgstr ""
+
+#: utils/hashers.py:40
+msgid "algorithm"
+msgstr ""
+
+#: utils/hashers.py:41
+msgid "iterations"
+msgstr ""
+
+#: utils/hashers.py:42
+msgid "salt"
+msgstr ""
+
+#: utils/hashers.py:43
+msgid "hash"
+msgstr ""
+
 #: utils/mixin.py:9
 msgid "Enabled"
 msgstr "启用"
@@ -130,3 +197,8 @@ msgstr "启用"
 #: utils/mixin.py:10
 msgid "Create Date"
 msgstr "创建日期"
+
+#, fuzzy
+#~| msgid "Platform"
+#~ msgid "Plantform"
+#~ msgstr "平台"

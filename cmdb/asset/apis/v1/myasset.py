@@ -1,17 +1,15 @@
-from asset.views import getMyAssets
+from asset.views import getSelfAssets
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
-from utils import admin_permission as ap
-from asset import admin
+from utils import admin
 
 
 @login_required()
 @require_http_methods(['GET'])
-# @ap.has_view_permission(admin.AssetAdmin)
+@admin.has_permission('asset.view_asset')
 def MyAssets(request):
-    Assets = getMyAssets(request)
-    print(admin.AssetAdmin.has_view_permission(request=request))
+    Assets = getSelfAssets(request)
     Res = {}
     for asset, systemUsers in Assets.items():
         protocols = list(set([p.Protocol for p in asset.Protocols.all()]))

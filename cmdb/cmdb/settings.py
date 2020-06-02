@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'drf_yasg',
     'utils',
     'asset',
     'audits'
@@ -67,7 +70,9 @@ ROOT_URLCONF = 'cmdb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'cmdb'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,7 +149,7 @@ if DEBUG:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/admin/login'
 
 DJANGO_TITLE = config.get('DJANGO', 'TITLE', fallback='JUMP')
 
@@ -153,3 +158,16 @@ SM4_VI = config.get('DJANGO', 'SM4_VI')
 PASSWORD_HASHERS = [
     'utils.hashers.PBKDF2SM3PasswordHasher',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'utils.authentication.AccessKeyAuthentication',
+        # 'utils.authentication.AccessTokenAuthentication',
+        # 'utils.authentication.PrivateTokenAuthentication',
+        # 'utils.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
