@@ -40,7 +40,7 @@ class LabelViewSet(APIView):
     @admin.api_permission('label.view_label', 'asset.view_self_assets')
     def get(self, request, format=None):
         self.http_methods(request)
-        if request.user.has_perm('assetgroup.view_assetgroup'):
+        if request.user.has_perm('label.view_label'):
             queryset = Label.objects.all()
             serializer = LabelSerializer(queryset, many=True)
             return Response(serializer.data)
@@ -48,11 +48,11 @@ class LabelViewSet(APIView):
             queryset = []
             for res in getSelfAssets(request):
                 queryset.append(res.Labels.all())
-                queryset = list(set(queryset))
+            queryset = list(set(queryset))
             serializer = LabelSerializer(queryset, many=True)
             return Response(serializer.data)
 
-    @admin.api_permission('asset.add_asset')
+    @admin.api_permission('label.add_label')
     def post(self, request, format=None):
         serializer = LabelSerializer(data=request.data)
         if serializer.is_valid():
@@ -60,7 +60,7 @@ class LabelViewSet(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @admin.api_permission('asset.change_asset')
+    @admin.api_permission('label.change_label')
     def put(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = LabelSerializer(snippet, data=request.data)
@@ -69,7 +69,7 @@ class LabelViewSet(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @admin.api_permission('asset.delete_asset')
+    @admin.api_permission('label.delete_label')
     def delete(self, request, pk, format=None):
         snippet = self.get_object(pk)
         snippet.delete()

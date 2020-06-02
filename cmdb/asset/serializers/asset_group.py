@@ -49,13 +49,12 @@ class AssetGroupViewSet(APIView):
             queryset = []
             for res in Permission.objects.filter(Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(
                 User=request.user.id)):
-                for assetGroup in res.AssetGroup.all():
-                    if assetGroup not in queryset:
-                        queryset.append(assetGroup)
+                queryset += list(res.AssetGroup.all())
+            queryset = list(set(queryset))
             serializer = AssetGroupSerializer(queryset, many=True)
             return Response(serializer.data)
 
-    @admin.api_permission('asset.add_asset')
+    @admin.api_permission('assetgroup.add_assetgroup')
     def post(self, request, format=None):
         serializer = AssetGroupSerializer(data=request.data)
         if serializer.is_valid():
@@ -63,16 +62,16 @@ class AssetGroupViewSet(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @admin.api_permission('asset.change_asset')
+    @admin.api_permission('assetgroup.change_assetgroup')
     def put(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = AssetGroupViewSet(snippet, data=request.data)
+        serializer = AssetGroupSerializer(snippet, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @admin.api_permission('asset.delete_asset')
+    @admin.api_permission('assetgroup.delete_assetgroup')
     def delete(self, request, pk, format=None):
         snippet = self.get_object(pk)
         snippet.delete()

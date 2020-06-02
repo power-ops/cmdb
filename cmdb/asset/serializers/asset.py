@@ -60,7 +60,7 @@ class AssetViewSet(APIView):
     @admin.api_permission('asset.change_asset')
     def put(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = AssetViewSet(snippet, data=request.data)
+        serializer = AssetSerializer(snippet, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
