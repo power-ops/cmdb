@@ -20,24 +20,10 @@ class LabelManager(models.Manager):
 
 
 class Label(MixinModel):
-    # SYSTEM_CATEGORY = "S"
-    # USER_CATEGORY = "U"
-    # CATEGORY_CHOICES = (
-    #     ("S", _("System")),
-    #     ("U", _("User"))
-    # )
     Name = models.CharField(max_length=128, verbose_name=_("Name"))
     Value = models.CharField(max_length=128, verbose_name=_("Value"))
-    # Category = models.CharField(max_length=128, choices=CATEGORY_CHOICES,
-    #                             default=USER_CATEGORY, verbose_name=_("Category"))
     Comment = models.TextField(blank=True, null=True, verbose_name=_("Comment"))
     objects = LabelManager()
-
-    # @classmethod
-    # def get_queryset_group_by_name(cls):
-    #     names = cls.objects.values_list('name', flat=True)
-    #     for name in names:
-    #         yield name, cls.objects.filter(Name=name)
 
     def __str__(self):
         return "{}:{}".format(self.Name, self.Value)

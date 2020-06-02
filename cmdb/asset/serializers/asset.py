@@ -20,8 +20,9 @@ class AssetSerializer(serializers.ModelSerializer):
 class AssetViewSet(APIView):
     # queryset = Asset.objects.all()
     serializer_class = AssetSerializer
+
     # http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']
-    http_method_names = ['options', 'head', 'get']
+    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
@@ -29,17 +30,8 @@ class AssetViewSet(APIView):
         except Asset.DoesNotExist:
             raise Http404
 
-    def http_methods(self, request):
-        if 'post' not in self.http_method_names and request.user.has_perm('asset.add_asset'):
-            self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('asset.change_asset'):
-            self.http_method_names.append("put")
-        if 'delete' not in self.http_method_names and request.user.has_perm('asset.delete_asset'):
-            self.http_method_names.append("delete")
-
     @admin.api_permission('asset.view_self_assets', 'asset.view_asset')
     def get(self, request, format=None):
-        self.http_methods(request)
         if request.user.has_perm('asset.view_assets'):
             queryset = Asset.objects.all()
             serializer = AssetSerializer(queryset, many=True)

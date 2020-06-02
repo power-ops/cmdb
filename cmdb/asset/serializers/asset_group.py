@@ -21,8 +21,9 @@ class AssetGroupSerializer(serializers.ModelSerializer):
 class AssetGroupViewSet(APIView):
     # queryset = Asset.objects.all()
     serializer_class = AssetGroupSerializer
+
     # http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']
-    http_method_names = ['options', 'head', 'get']
+    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
@@ -30,17 +31,8 @@ class AssetGroupViewSet(APIView):
         except AssetGroup.DoesNotExist:
             raise Http404
 
-    def http_methods(self, request):
-        if 'post' not in self.http_method_names and request.user.has_perm('assetgroup.add_assetgroup'):
-            self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('assetgroup.change_assetgroup'):
-            self.http_method_names.append("put")
-        if 'delete' not in self.http_method_names and request.user.has_perm('assetgroup.delete_assetgroup'):
-            self.http_method_names.append("delete")
-
     @admin.api_permission('assetgroup.view_assetgroup', 'asset.view_self_assets')
     def get(self, request, format=None):
-        self.http_methods(request)
         if request.user.has_perm('assetgroup.view_assetgroup'):
             queryset = AssetGroup.objects.all()
             serializer = AssetGroupSerializer(queryset, many=True)

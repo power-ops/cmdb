@@ -20,8 +20,9 @@ class LabelSerializer(serializers.ModelSerializer):
 class LabelViewSet(APIView):
     # queryset = Asset.objects.all()
     serializer_class = LabelSerializer
+
     # http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']
-    http_method_names = ['options', 'head', 'get']
+    # http_method_names = ['options', 'head', 'get', 'post', 'put', 'delete']
 
     def get_object(self, pk):
         try:
@@ -29,17 +30,8 @@ class LabelViewSet(APIView):
         except Label.DoesNotExist:
             raise Http404
 
-    def http_methods(self, request):
-        if 'post' not in self.http_method_names and request.user.has_perm('label.add_label'):
-            self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('label.change_label'):
-            self.http_method_names.append("put")
-        if 'delete' not in self.http_method_names and request.user.has_perm('label.delete_label'):
-            self.http_method_names.append("delete")
-
     @admin.api_permission('label.view_label', 'asset.view_self_assets')
     def get(self, request, format=None):
-        self.http_methods(request)
         if request.user.has_perm('label.view_label'):
             queryset = Label.objects.all()
             serializer = LabelSerializer(queryset, many=True)
@@ -47,7 +39,7 @@ class LabelViewSet(APIView):
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
             for res in getSelfAssets(request):
-                queryset.append(res.Labels.all())
+                queryset += list(res.Labels.all())
             queryset = list(set(queryset))
             serializer = LabelSerializer(queryset, many=True)
             return Response(serializer.data)
