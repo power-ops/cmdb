@@ -10,6 +10,7 @@ class LabelsAdmin(VersionAdmin):
     fields = ['Name', 'Value', 'Enabled', 'CreateDate']
     readonly_fields = ['CreateDate']
     list_display = ['Name', 'Value', 'Enabled', 'CreateDate']
+    list_per_page = 30
 
     def has_view_permission(self, request, obj=None):
         """

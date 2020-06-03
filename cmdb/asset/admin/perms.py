@@ -9,3 +9,4 @@ class PermsAdmin(VersionAdmin):
     readonly_fields = ['CreateDate']
     list_display = ['Name', 'Enabled', 'CreateDate']
     form = forms.PermsForm
+    list_per_page = 30

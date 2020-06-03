@@ -14,6 +14,7 @@ class AssetAdmin(VersionAdmin):
     form = forms.AssetForm
     readonly_fields = ('CreateDate',)
     fields = ['Hostname', 'IP', 'Protocols', 'Labels', 'Platform', 'Enabled', 'CreateDate']
+    list_per_page = 30
 
     def has_view_permission(self, request, obj=None):
         """

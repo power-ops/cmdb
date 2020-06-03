@@ -12,6 +12,7 @@ class AssteGroupAdmin(VersionAdmin):
     form = forms.AssetForm
     readonly_fields = ('CreateDate',)
     fields = ['Name', 'Assets', 'Enabled', 'CreateDate']
+    list_per_page = 30
 
     def has_view_permission(self, request, obj=None):
         """

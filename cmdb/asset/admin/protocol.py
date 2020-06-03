@@ -10,6 +10,7 @@ class ProtocolAdmin(VersionAdmin):
     fields = ['Name', 'Protocol', 'Port', 'Enabled', 'CreateDate']
     readonly_fields = ['CreateDate']
     list_display = ['Name', 'Protocol', 'Port', 'Enabled', 'CreateDate']
+    list_per_page = 30
 
     def has_view_permission(self, request, obj=None):
         """
