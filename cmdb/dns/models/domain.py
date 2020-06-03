@@ -25,8 +25,8 @@ class DomainManager(models.Manager):
 class Domain(MixinModel):
     Name = models.CharField(max_length=128, verbose_name=_('Name'))
     Domain = models.CharField(max_length=128, verbose_name=_('Domain'))
-    Status = models.CharField(max_length=128, verbose_name=_('Status'))
-    DnsServer = models.TextField(verbose_name=_('DNS Server'))
+    Status = models.CharField(max_length=128, verbose_name=_('Status'), null=True)
+    DnsServer = models.TextField(verbose_name=_('DNS Server'), null=True)
     ExpireDate = models.DateTimeField(_('Expire Date'), null=True)
     objects = DomainManager()
 

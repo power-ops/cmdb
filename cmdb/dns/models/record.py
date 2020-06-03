@@ -29,9 +29,9 @@ class Record(MixinModel):
     Prefix = models.CharField(max_length=128, verbose_name=_('Prefix'))
     Type = models.CharField(max_length=128, verbose_name=_('Type'))
     Value = models.CharField(max_length=128, verbose_name=_('Value'))
-    MxPriority = models.IntegerField(verbose_name=_('MX Priority'))
-    Circuit = models.CharField(max_length=128, verbose_name=_('Circuit'))
-    Weight = models.IntegerField(verbose_name=_('Weight'))
+    MxPriority = models.IntegerField(verbose_name=_('MX Priority'), null=True)
+    Circuit = models.CharField(max_length=128, verbose_name=_('Circuit'), null=True)
+    Weight = models.IntegerField(verbose_name=_('Weight'), null=True)
     TTL = models.IntegerField(verbose_name=_('TTL'))
     LastUpdate = models.DateTimeField(_('Last Update'), default=timezone.now)
 
