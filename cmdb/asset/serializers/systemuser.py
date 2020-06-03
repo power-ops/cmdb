@@ -8,6 +8,7 @@ from django.http import Http404
 from django.db.models import Q
 from asset.models import Permission
 from rest_framework.request import Request
+from django.core.cache import cache
 
 
 class SystemUserSerializer(serializers.ModelSerializer):
@@ -61,10 +62,14 @@ class SystemUserViewSet(APIView):
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
-            for res in Permission.objects.filter(Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(
-                    User=request.user.id)):
-                queryset += list(res.SystemUser.all())
-            queryset = list(set(queryset))
+            if cache.get('SystemUserViewSet_get_' + request.user.username):
+                queryset = cache.get('SystemUserViewSet_get_' + request.user.username)
+            else:
+                for res in Permission.objects.filter(Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(
+                        User=request.user.id)):
+                    queryset += list(res.SystemUser.all())
+                queryset = list(set(queryset))
+                cache.set('SystemUserViewSet_get_' + request.user.username, queryset)
             if uuid:
                 aim = SystemUser.objects.filter(uuid=uuid)
                 if aim in queryset:

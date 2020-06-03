@@ -3,6 +3,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from asset.models import Permission
+from django.core.cache import cache
 
 
 @login_required()
@@ -12,6 +13,8 @@ def MyAssetsView(request):
 
 
 def getSelfAssets(request):
+    if cache.get('getSelfAssets_' + request.user.username):
+        return cache.get('getSelfAssets_' + request.user.username)
     Assets = {}
     for res in Permission.objects.filter(
             Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(User=request.user.id)):
@@ -29,4 +32,5 @@ def getSelfAssets(request):
                     Assets[asset].extend(systemUser)
     for asset, systemUser in Assets.items():
         Assets[asset] = list(set(systemUser))
+    cache.set('getSelfAssets_' + request.user.username, Assets)
     return Assets
