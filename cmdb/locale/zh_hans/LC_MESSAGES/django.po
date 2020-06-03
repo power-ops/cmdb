@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-02 21:03+0800\n"
+"POT-Creation-Date: 2020-06-03 22:08+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgstr "标签"
 msgid "Created by"
 msgstr "创建者"
 
-#: asset/models/asset.py:39 asset/models/label.py:33 asset/models/platform.py:8
+#: asset/models/asset.py:39 asset/models/label.py:25 asset/models/platform.py:8
 msgid "Comment"
 msgstr "备注"
 
@@ -69,9 +69,10 @@ msgstr "备注"
 msgid "Protocols"
 msgstr "协议"
 
-#: asset/models/asset_group.py:23 asset/models/label.py:29
+#: asset/models/asset_group.py:23 asset/models/label.py:23
 #: asset/models/perms.py:24 asset/models/platform.py:7
 #: asset/models/protocol.py:19 asset/models/systemuser.py:20
+#: dns/models/domain.py:26
 msgid "Name"
 msgstr "名称"
 
@@ -83,11 +84,11 @@ msgstr "资产"
 msgid "Asset Group"
 msgstr "资产组"
 
-#: asset/models/label.py:30
+#: asset/models/label.py:24 dns/models/record.py:31
 msgid "Value"
-msgstr ""
+msgstr "记录值"
 
-#: asset/models/label.py:46 asset/models/label.py:47
+#: asset/models/label.py:32 asset/models/label.py:33
 msgid "Label"
 msgstr "标签"
 
@@ -123,31 +124,111 @@ msgstr "系统用户"
 msgid "Audits"
 msgstr "审计"
 
+#: audits/models/api_log.py:27
+msgid "Class"
+msgstr "类"
+
+#: audits/models/api_log.py:28
+msgid "Function"
+msgstr "方法"
+
+#: audits/models/api_log.py:29
+msgid "User"
+msgstr "用户"
+
+#: audits/models/api_log.py:30
+msgid "Source IP"
+msgstr "源IP"
+
+#: audits/models/api_log.py:31
+msgid "URI"
+msgstr "URI"
+
+#: audits/models/api_log.py:32
+msgid "Status Code"
+msgstr "状态码"
+
+#: audits/models/api_log.py:33 utils/mixin.py:10
+msgid "Create Date"
+msgstr "创建日期"
+
+#: audits/models/api_log.py:38 audits/models/api_log.py:39
+msgid "ApiLog"
+msgstr "API日志"
+
+#: certificate/apps.py:7
+msgid "Certificate"
+msgstr ""
+
+#: dns/apps.py:7
+msgid "DNS"
+msgstr ""
+
+#: dns/models/domain.py:27 dns/models/domain.py:34 dns/models/domain.py:35
+#: domain/apps.py:7
+msgid "Domain"
+msgstr "域名"
+
+#: dns/models/domain.py:28
+msgid "Status"
+msgstr "状态"
+
+#: dns/models/domain.py:29
+msgid "DNS Server"
+msgstr "DNS主机"
+
+#: dns/models/domain.py:30
+msgid "Expire Date"
+msgstr "过期时间"
+
+#: dns/models/record.py:29
+msgid "Prefix"
+msgstr "前缀"
+
+#: dns/models/record.py:30
+msgid "Type"
+msgstr "类型"
+
+#: dns/models/record.py:32
+msgid "MX Priority"
+msgstr "MX优先级"
+
+#: dns/models/record.py:33
+msgid "Circuit"
+msgstr "线路"
+
+#: dns/models/record.py:34
+msgid "Weight"
+msgstr "权重"
+
+#: dns/models/record.py:35
+msgid "TTL"
+msgstr "TTL"
+
+#: dns/models/record.py:36
+msgid "Last Update"
+msgstr "最后操作时间"
+
+#: dns/models/record.py:41 dns/models/record.py:42
+msgid "Record"
+msgstr "解析记录"
+
 #: utils/hashers.py:40
 msgid "algorithm"
-msgstr ""
+msgstr "算法"
 
 #: utils/hashers.py:41
 msgid "iterations"
-msgstr ""
+msgstr "迭代次数"
 
 #: utils/hashers.py:42
 msgid "salt"
-msgstr ""
+msgstr "盐"
 
 #: utils/hashers.py:43
 msgid "hash"
-msgstr ""
+msgstr "哈希"
 
 #: utils/mixin.py:9
 msgid "Enabled"
 msgstr "启用"
-
-#: utils/mixin.py:10
-msgid "Create Date"
-msgstr "创建日期"
-
-#, fuzzy
-#~| msgid "Platform"
-#~ msgid "Plantform"
-#~ msgstr "平台"
