@@ -23,13 +23,20 @@ def api_permission(*perms: str):
         def wrapper(api, request, *args, **kwargs):
             for perm in perms:
                 if request.user.has_perm(perm):
-                    ApiLog.objects.create(Class=api.__class__.__name__,
-                                          Function=func.__name__,
-                                          User=request.user,
-                                          SourceIP=request.META.get('HTTP_X_FORWARDED_FOR').split(',')[0]
-                                          if request.META.get('HTTP_X_FORWARDED_FOR') else request.META.get(
-                                              'REMOTE_ADDR')).save()
-                    return func(api, request, *args, **kwargs)
+                    log = ApiLog.objects.create(Class=api.__class__.__name__,
+                                                Function=func.__name__,
+                                                User=request.user,
+                                                SourceIP=request.META.get('HTTP_X_FORWARDED_FOR').split(',')[0]
+                                                if request.META.get('HTTP_X_FORWARDED_FOR') else request.META.get(
+                                                    'REMOTE_ADDR'),
+                                                URI=request.get_full_path()
+                                                )
+
+                    log.save()
+                    res = func(api, request, *args, **kwargs)
+                    log.StatusCode = res.status_code
+                    log.save()
+                    return res
             return HttpResponseForbidden('You DO NOT have this api permission, Please contact your administrator')
 
         return wrapper

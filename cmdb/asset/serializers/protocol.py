@@ -87,7 +87,7 @@ class ProtocolViewSet(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @admin.api_permission('protocol.delete_protocol')
-    def delete(self, request, pk, format=None):
-        snippet = self.get_object(pk)
+    def delete(self, request, uuid, format=None):
+        snippet = self.get_object(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

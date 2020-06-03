@@ -7,8 +7,8 @@ from audits import models
 # Register your models here.
 @admin.register(models.ApiLog)
 class ApiLogAdmin(VersionAdmin):
-    list_display = ('User', 'Function', 'Class', 'SourceIP', 'CreateDate')
-    list_filter = ('User', 'Function', 'Class', 'SourceIP')
+    list_display = ('User', 'Function', 'Class', 'SourceIP', 'StatusCode', 'CreateDate')
+    list_filter = ('User', 'Function', 'Class', 'SourceIP', 'StatusCode')
     search_fields = ('User', 'Function', 'Class', 'SourceIP')
     # form = forms.AssetForm
     readonly_fields = ('CreateDate',)
