@@ -20,7 +20,6 @@ class AssetSerializer(serializers.ModelSerializer):
 
 class AssetViewSet(APIView):
     serializer_class = AssetSerializer
-    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
@@ -31,8 +30,6 @@ class AssetViewSet(APIView):
     def http_methods(self, request):
         if 'post' not in self.http_method_names and request.user.has_perm('asset.add_asset'):
             self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('asset.change_asset'):
-            self.http_method_names.append("put")
         if 'delete' not in self.http_method_names and request.user.has_perm('asset.delete_asset'):
             self.http_method_names.append("delete")
 
@@ -51,31 +48,38 @@ class AssetViewSet(APIView):
         )
 
     @admin.api_permission('asset.view_self_assets', 'asset.view_asset')
-    def get(self, request, format=None):
+    def get(self, request, uuid=None, format=None):
         if request.user.has_perm('asset.view_assets'):
-            queryset = Asset.objects.all()
-            serializer = AssetSerializer(queryset, many=True)
+            if uuid:
+                snippet = self.get_object(uuid)
+                serializer = AssetSerializer(snippet)
+            else:
+                queryset = Asset.objects.all()
+                serializer = AssetSerializer(queryset, many=True)
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = getSelfAssets(request)
-            serializer = AssetSerializer(queryset, many=True)
+            if uuid:
+                aim = Asset.objects.filter(uuid=uuid)
+                if aim in queryset:
+                    snippet = self.get_object(uuid)
+                    serializer = AssetSerializer(snippet)
+                else:
+                    serializer = AssetSerializer(None, many=True)
+            else:
+                serializer = AssetSerializer(queryset, many=True)
             return Response(serializer.data)
 
     @admin.api_permission('asset.add_asset')
-    def post(self, request, format=None):
-        serializer = AssetSerializer(data=request.data)
+    def post(self, request, uuid=None, format=None):
+        if uuid:
+            snippet = self.get_object(uuid)
+            serializer = AssetSerializer(snippet, data=request.data)
+        else:
+            serializer = AssetSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('asset.change_asset')
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = AssetSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @admin.api_permission('asset.delete_asset')

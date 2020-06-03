@@ -20,7 +20,6 @@ class LabelSerializer(serializers.ModelSerializer):
 
 class LabelViewSet(APIView):
     serializer_class = LabelSerializer
-    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
@@ -32,8 +31,6 @@ class LabelViewSet(APIView):
         self.http_method_names = ['options', 'head', 'get']
         if 'post' not in self.http_method_names and request.user.has_perm('label.add_label'):
             self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('label.change_label'):
-            self.http_method_names.append("put")
         if 'delete' not in self.http_method_names and request.user.has_perm('label.delete_label'):
             self.http_method_names.append("delete")
 
@@ -52,34 +49,41 @@ class LabelViewSet(APIView):
         )
 
     @admin.api_permission('label.view_label', 'asset.view_self_assets')
-    def get(self, request, format=None):
+    def get(self, request, uuid=None, format=None):
         if request.user.has_perm('label.view_label'):
-            queryset = Label.objects.all()
-            serializer = LabelSerializer(queryset, many=True)
+            if uuid:
+                snippet = self.get_object(uuid)
+                serializer = LabelSerializer(snippet)
+            else:
+                queryset = Label.objects.all()
+                serializer = LabelSerializer(queryset, many=True)
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
             for res in getSelfAssets(request):
                 queryset += list(res.Labels.all())
             queryset = list(set(queryset))
-            serializer = LabelSerializer(queryset, many=True)
+            if uuid:
+                aim = Label.objects.filter(uuid=uuid)
+                if aim in queryset:
+                    snippet = self.get_object(uuid)
+                    serializer = LabelSerializer(snippet)
+                else:
+                    serializer = LabelSerializer(None, many=True)
+            else:
+                serializer = LabelSerializer(queryset, many=True)
             return Response(serializer.data)
 
     @admin.api_permission('label.add_label')
-    def post(self, request, format=None):
-        serializer = LabelSerializer(data=request.data)
+    def post(self, request, uuid=None, format=None):
+        if uuid:
+            snippet = self.get_object(uuid)
+            serializer = LabelSerializer(snippet, data=request.data)
+        else:
+            serializer = LabelSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('label.change_label')
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = LabelSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @admin.api_permission('label.delete_label')

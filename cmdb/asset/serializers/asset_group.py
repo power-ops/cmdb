@@ -21,7 +21,6 @@ class AssetGroupSerializer(serializers.ModelSerializer):
 
 class AssetGroupViewSet(APIView):
     serializer_class = AssetGroupSerializer
-    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
@@ -32,8 +31,6 @@ class AssetGroupViewSet(APIView):
     def http_methods(self, request):
         if 'post' not in self.http_method_names and request.user.has_perm('assetgroup.add_assetgroup'):
             self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('assetgroup.change_assetgroup'):
-            self.http_method_names.append("put")
         if 'delete' not in self.http_method_names and request.user.has_perm('assetgroup.delete_assetgroup'):
             self.http_method_names.append("delete")
 
@@ -52,35 +49,42 @@ class AssetGroupViewSet(APIView):
         )
 
     @admin.api_permission('assetgroup.view_assetgroup', 'asset.view_self_assets')
-    def get(self, request, format=None):
+    def get(self, request, uuid=None, format=None):
         if request.user.has_perm('assetgroup.view_assetgroup'):
-            queryset = AssetGroup.objects.all()
-            serializer = AssetGroupSerializer(queryset, many=True)
+            if uuid:
+                snippet = self.get_object(uuid)
+                serializer = AssetGroupSerializer(snippet)
+            else:
+                queryset = AssetGroup.objects.all()
+                serializer = AssetGroupSerializer(queryset, many=True)
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
             for res in Permission.objects.filter(Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(
-                User=request.user.id)):
+                    User=request.user.id)):
                 queryset += list(res.AssetGroup.all())
             queryset = list(set(queryset))
-            serializer = AssetGroupSerializer(queryset, many=True)
+            if uuid:
+                aim = AssetGroup.objects.filter(uuid=uuid)
+                if aim in queryset:
+                    snippet = self.get_object(uuid)
+                    serializer = AssetGroupSerializer(snippet)
+                else:
+                    serializer = AssetGroupSerializer(None, many=True)
+            else:
+                serializer = AssetGroupSerializer(queryset, many=True)
             return Response(serializer.data)
 
     @admin.api_permission('assetgroup.add_assetgroup')
-    def post(self, request, format=None):
-        serializer = AssetGroupSerializer(data=request.data)
+    def post(self, request, uuid=None, format=None):
+        if uuid:
+            snippet = self.get_object(uuid)
+            serializer = AssetGroupSerializer(snippet, data=request.data)
+        else:
+            serializer = AssetGroupSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('assetgroup.change_assetgroup')
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = AssetGroupSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @admin.api_permission('assetgroup.delete_assetgroup')

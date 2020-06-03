@@ -21,7 +21,6 @@ class SystemUserSerializer(serializers.ModelSerializer):
 
 class SystemUserViewSet(APIView):
     serializer_class = SystemUserSerializer
-    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
@@ -33,8 +32,6 @@ class SystemUserViewSet(APIView):
         self.http_method_names = ['options', 'head', 'get']
         if 'post' not in self.http_method_names and request.user.has_perm('systemuser.add_systemuser'):
             self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('systemuser.change_systemuser'):
-            self.http_method_names.append("put")
         if 'delete' not in self.http_method_names and request.user.has_perm('systemuser.delete_systemuser'):
             self.http_method_names.append("delete")
 
@@ -53,35 +50,42 @@ class SystemUserViewSet(APIView):
         )
 
     @admin.api_permission('systemuser.view_systemuser', 'asset.view_self_assets')
-    def get(self, request, format=None):
+    def get(self, request, uuid=None, format=None):
         if request.user.has_perm('systemuser.view_systemuser'):
-            queryset = SystemUser.objects.all()
-            serializer = SystemUserSerializer(queryset, many=True)
+            if uuid:
+                snippet = self.get_object(uuid)
+                serializer = SystemUserSerializer(snippet)
+            else:
+                queryset = SystemUser.objects.all()
+                serializer = SystemUserSerializer(queryset, many=True)
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
             for res in Permission.objects.filter(Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(
-                User=request.user.id)):
+                    User=request.user.id)):
                 queryset += list(res.SystemUser.all())
             queryset = list(set(queryset))
-            serializer = SystemUserSerializer(queryset, many=True)
+            if uuid:
+                aim = SystemUser.objects.filter(uuid=uuid)
+                if aim in queryset:
+                    snippet = self.get_object(uuid)
+                    serializer = SystemUserSerializer(snippet)
+                else:
+                    serializer = SystemUserSerializer(None, many=True)
+            else:
+                serializer = SystemUserSerializer(queryset, many=True)
             return Response(serializer.data)
 
     @admin.api_permission('asset.add_asset')
-    def post(self, request, format=None):
-        serializer = SystemUserSerializer(data=request.data)
+    def post(self, request, uuid=None, format=None):
+        if uuid:
+            snippet = self.get_object(uuid)
+            serializer = SystemUserSerializer(snippet, data=request.data)
+        else:
+            serializer = SystemUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('asset.change_asset')
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = SystemUserSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @admin.api_permission('asset.delete_asset')

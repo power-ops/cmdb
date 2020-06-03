@@ -19,7 +19,6 @@ class PermissionSerializer(serializers.ModelSerializer):
 
 class PermissionViewSet(APIView):
     serializer_class = PermissionSerializer
-    # http_method_names = ['options', 'head', 'get']
 
     def get_object(self, pk):
         try:
@@ -31,8 +30,6 @@ class PermissionViewSet(APIView):
         self.http_method_names = ['options', 'head', 'get']
         if 'post' not in self.http_method_names and request.user.has_perm('permission.add_permission'):
             self.http_method_names.append("post")
-        if 'put' not in self.http_method_names and request.user.has_perm('permission.change_permission'):
-            self.http_method_names.append("put")
         if 'delete' not in self.http_method_names and request.user.has_perm('permission.delete_permission'):
             self.http_method_names.append("delete")
 
@@ -51,26 +48,25 @@ class PermissionViewSet(APIView):
         )
 
     @admin.api_permission('premission.view_premission')
-    def get(self, request, format=None):
-        queryset = Permission.objects.all()
-        serializer = PermissionSerializer(queryset, many=True)
+    def get(self, request, uuid=None, format=None):
+        if uuid:
+            snippet = self.get_object(uuid)
+            serializer = PermissionSerializer(snippet)
+        else:
+            queryset = Permission.objects.all()
+            serializer = PermissionSerializer(queryset, many=True)
         return Response(serializer.data)
 
     @admin.api_permission('premission.add_premission')
-    def post(self, request, format=None):
-        serializer = PermissionSerializer(data=request.data)
+    def post(self, request, uuid=None, format=None):
+        if uuid:
+            snippet = self.get_object(uuid)
+            serializer = PermissionSerializer(snippet, data=request.data)
+        else:
+            serializer = PermissionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('premission.change_premission')
-    def put(self, request, pk, format=None):
-        snippet = self.get_object(pk)
-        serializer = PermissionSerializer(snippet, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @admin.api_permission('premission.delete_premission')
