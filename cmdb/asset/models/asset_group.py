@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel, MixinQuerySet, UUIDManager
+from utils.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
 from .asset import Asset
 
 
@@ -12,7 +12,7 @@ class AssetGroupManager(UUIDManager):
     pass
 
 
-class AssetGroup(MixinModel):
+class AssetGroup(MixinUUIDModel):
     Name = models.CharField(verbose_name=_('Name'), max_length=64, unique=True)
     Assets = models.ManyToManyField(Asset, verbose_name=_('Assets'))
 

@@ -1,30 +1,19 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from utils.mixin import MixinModel
+from utils.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
 from .domain import Domain
 
 
-class RecordQuerySet(models.QuerySet):
-    def active(self):
-        return self.filter(Enabled=True)
-
-    def valid(self):
-        return self.active()
-
-    def has_protocol(self, name):
-        return self.filter(protocols__contains=name)
+class RecordQuerySet(MixinQuerySet):
+    pass
 
 
-class RecordManager(models.Manager):
-    def get_queryset(self):
-        return RecordQuerySet(self.model, using=self._db)
-
-    def get_by_id(self, id):
-        return self.get_queryset().filter(uuid=id).first()
+class RecordManager(UUIDManager):
+    pass
 
 
-class Record(MixinModel):
+class Record(MixinUUIDModel):
     Domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
     Prefix = models.CharField(max_length=128, verbose_name=_('Prefix'))
     Type = models.CharField(max_length=128, verbose_name=_('Type'))
@@ -36,6 +25,9 @@ class Record(MixinModel):
     LastUpdate = models.DateTimeField(_('Last Update'), default=timezone.now)
 
     objects = RecordManager()
+
+    def __str__(self):
+        return self.Prefix + '.' + self.Domain.Domain
 
     class Meta:
         verbose_name = _('Record')

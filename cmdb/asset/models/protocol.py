@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel, UUIDManager, MixinQuerySet
+from utils.mixin import MixinUUIDModel, UUIDManager, MixinQuerySet
 
 
 class ProtocolQuerySet(MixinQuerySet):
@@ -11,7 +11,7 @@ class ProtocolManager(UUIDManager):
     pass
 
 
-class Protocol(MixinModel):
+class Protocol(MixinUUIDModel):
     Name = models.CharField(_('Name'), max_length=64, unique=True)
     Protocol = models.CharField(_('Protocol'), max_length=64)
     Port = models.IntegerField(_('Port'))

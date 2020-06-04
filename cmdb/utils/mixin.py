@@ -6,7 +6,6 @@ from django.core.cache import cache
 
 
 class MixinModel(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4, primary_key=True)
     Enabled = models.BooleanField(_('Enabled'), default=True)
     CreateDate = models.DateTimeField(_('Create Date'), default=timezone.now)
 
@@ -22,7 +21,17 @@ class MixinModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
+        print(self)
+        print(self.__class__)
+        # cache.delete(self.__class__.__name__ + '.objects.all()')
         super(MixinModel, self).save(*args, **kwargs)
+
+
+class MixinUUIDModel(MixinModel):
+    uuid = models.UUIDField(default=uuid.uuid4, primary_key=True)
+
+    class Meta:
+        abstract = True
 
 
 class MixinQuerySet(models.QuerySet):

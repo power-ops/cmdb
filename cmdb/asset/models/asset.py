@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel, MixinQuerySet, UUIDManager
+from utils.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
 from .protocol import Protocol
 from .platform import Platform
 from .label import Label
@@ -15,7 +15,7 @@ class AssetManager(UUIDManager):
         return AssetQuerySet(self.model, using=self._db)
 
 
-class Asset(MixinModel):
+class Asset(MixinUUIDModel):
     IP = models.CharField(max_length=128, verbose_name=_('IP'), db_index=True)
     Hostname = models.CharField(max_length=128, verbose_name=_('Hostname'))
     Protocols = models.ManyToManyField(Protocol, verbose_name=_('Protocol'))

@@ -1,34 +1,26 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel
+from utils.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
 
 
-class DomainQuerySet(models.QuerySet):
-    def active(self):
-        return self.filter(Enabled=True)
-
-    def valid(self):
-        return self.active()
-
-    def has_protocol(self, name):
-        return self.filter(protocols__contains=name)
+class DomainQuerySet(MixinQuerySet):
+    pass
 
 
-class DomainManager(models.Manager):
-    def get_queryset(self):
-        return DomainQuerySet(self.model, using=self._db)
-
-    def get_by_id(self, id):
-        return self.get_queryset().filter(uuid=id).first()
+class DomainManager(UUIDManager):
+    pass
 
 
-class Domain(MixinModel):
+class Domain(MixinUUIDModel):
     Name = models.CharField(max_length=128, verbose_name=_('Name'))
     Domain = models.CharField(max_length=128, verbose_name=_('Domain'))
     Status = models.CharField(max_length=128, verbose_name=_('Status'), null=True)
     DnsServer = models.TextField(verbose_name=_('DNS Server'), null=True)
     ExpireDate = models.DateTimeField(_('Expire Date'), null=True)
     objects = DomainManager()
+
+    def __str__(self):
+        return self.Name
 
     class Meta:
         verbose_name = _('Domain')

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-03 22:08+0800\n"
+"POT-Creation-Date: 2020-06-04 16:07+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: asset/apps.py:7 asset/models/asset.py:44 asset/models/asset.py:45
+#: asset/apps.py:7 asset/models/asset.py:34 asset/models/asset.py:35
 msgid "Asset"
 msgstr "资产"
 
@@ -26,97 +26,97 @@ msgstr "资产"
 msgid "KeyFile"
 msgstr "密钥文件"
 
-#: asset/models/asset.py:29
+#: asset/models/asset.py:19
 msgid "IP"
 msgstr "IP"
 
-#: asset/models/asset.py:30
+#: asset/models/asset.py:20
 msgid "Hostname"
 msgstr "主机名"
 
-#: asset/models/asset.py:31 asset/models/protocol.py:20
-#: asset/models/protocol.py:29 asset/models/protocol.py:30
-#: asset/models/systemuser.py:25
+#: asset/models/asset.py:21 asset/models/protocol.py:16
+#: asset/models/protocol.py:25 asset/models/protocol.py:26
+#: asset/models/systemuser.py:22
 msgid "Protocol"
 msgstr "协议"
 
-#: asset/models/asset.py:33 asset/models/platform.py:34
+#: asset/models/asset.py:23 asset/models/platform.py:34
 #: asset/models/platform.py:35
 msgid "Platform"
 msgstr "平台"
 
-#: asset/models/asset.py:34
+#: asset/models/asset.py:24
 msgid "Public IP"
 msgstr "公网IP"
 
-#: asset/models/asset.py:35
+#: asset/models/asset.py:25
 msgid "Asset number"
 msgstr "资产号"
 
-#: asset/models/asset.py:37
+#: asset/models/asset.py:27
 msgid "Labels"
 msgstr "标签"
 
-#: asset/models/asset.py:38
+#: asset/models/asset.py:28
 msgid "Created by"
 msgstr "创建者"
 
-#: asset/models/asset.py:39 asset/models/label.py:25 asset/models/platform.py:8
+#: asset/models/asset.py:29 asset/models/label.py:17 asset/models/platform.py:8
 msgid "Comment"
 msgstr "备注"
 
-#: asset/models/asset.py:51
+#: asset/models/asset.py:41
 msgid "Protocols"
 msgstr "协议"
 
-#: asset/models/asset_group.py:23 asset/models/label.py:23
-#: asset/models/perms.py:24 asset/models/platform.py:7
-#: asset/models/protocol.py:19 asset/models/systemuser.py:20
+#: asset/models/asset_group.py:16 asset/models/label.py:15
+#: asset/models/perms.py:17 asset/models/platform.py:7
+#: asset/models/protocol.py:15 asset/models/systemuser.py:17
 #: dns/models/domain.py:26
 msgid "Name"
 msgstr "名称"
 
-#: asset/models/asset_group.py:24
+#: asset/models/asset_group.py:17
 msgid "Assets"
 msgstr "资产"
 
-#: asset/models/asset_group.py:29 asset/models/asset_group.py:30
+#: asset/models/asset_group.py:22 asset/models/asset_group.py:23
 msgid "Asset Group"
 msgstr "资产组"
 
-#: asset/models/label.py:24 dns/models/record.py:31
+#: asset/models/label.py:16 dns/models/record.py:31
 msgid "Value"
 msgstr "记录值"
 
-#: asset/models/label.py:32 asset/models/label.py:33
+#: asset/models/label.py:24 asset/models/label.py:25
 msgid "Label"
 msgstr "标签"
 
-#: asset/models/perms.py:37 asset/models/perms.py:38
+#: asset/models/perms.py:30 asset/models/perms.py:31
 msgid "Permission"
 msgstr "权限"
 
-#: asset/models/protocol.py:21
+#: asset/models/protocol.py:17
 msgid "Port"
 msgstr "端口"
 
-#: asset/models/systemuser.py:21
+#: asset/models/systemuser.py:18
 msgid "Username"
 msgstr "用户名"
 
-#: asset/models/systemuser.py:22
+#: asset/models/systemuser.py:19
 msgid "Password"
 msgstr "密码"
 
-#: asset/models/systemuser.py:23
+#: asset/models/systemuser.py:20
 msgid "Last Password"
 msgstr "历史密码"
 
-#: asset/models/systemuser.py:24
+#: asset/models/systemuser.py:21
 msgid "Key"
 msgstr "密钥"
 
-#: asset/models/systemuser.py:64 asset/models/systemuser.py:65
+#: asset/models/systemuser.py:61 asset/models/systemuser.py:62
 msgid "System User"
 msgstr "系统用户"
 
@@ -148,7 +148,7 @@ msgstr "URI"
 msgid "Status Code"
 msgstr "状态码"
 
-#: audits/models/api_log.py:33 utils/mixin.py:10
+#: audits/models/api_log.py:33 utils/mixin.py:11
 msgid "Create Date"
 msgstr "创建日期"
 
@@ -213,6 +213,57 @@ msgstr "最后操作时间"
 msgid "Record"
 msgstr "解析记录"
 
+#: utils/authentication.py:56
+msgid "Invalid signature header. No credentials provided."
+msgstr ""
+
+#: utils/authentication.py:59
+msgid "Invalid signature header. Signature string should not contain spaces."
+msgstr ""
+
+#: utils/authentication.py:66
+msgid "Invalid signature header. Format like AccessKeyId:Signature"
+msgstr ""
+
+#: utils/authentication.py:70
+msgid ""
+"Invalid signature header. Signature string should not contain invalid "
+"characters."
+msgstr ""
+
+#: utils/authentication.py:90 utils/authentication.py:106
+msgid "Invalid signature."
+msgstr ""
+
+#: utils/authentication.py:97
+msgid "HTTP header: Date not provide or not %a, %d %b %Y %H:%M:%S GMT"
+msgstr ""
+
+#: utils/authentication.py:102
+msgid "Expired, more than 15 minutes"
+msgstr ""
+
+#: utils/authentication.py:109
+msgid "User disabled."
+msgstr ""
+
+#: utils/authentication.py:124
+msgid "Invalid token header. No credentials provided."
+msgstr ""
+
+#: utils/authentication.py:127
+msgid "Invalid token header. Sign string should not contain spaces."
+msgstr ""
+
+#: utils/authentication.py:134
+msgid ""
+"Invalid token header. Sign string should not contain invalid characters."
+msgstr ""
+
+#: utils/authentication.py:145
+msgid "Invalid token or cache refreshed."
+msgstr ""
+
 #: utils/hashers.py:40
 msgid "algorithm"
 msgstr "算法"
@@ -229,6 +280,6 @@ msgstr "盐"
 msgid "hash"
 msgstr "哈希"
 
-#: utils/mixin.py:9
+#: utils/mixin.py:10
 msgid "Enabled"
 msgstr "启用"

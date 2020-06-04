@@ -1,9 +1,9 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel
+from utils.mixin import MixinUUIDModel
 
 
-class Platform(MixinModel):
+class Platform(MixinUUIDModel):
     Name = models.SlugField(verbose_name=_("Name"), unique=True, allow_unicode=True)
     Comment = models.TextField(blank=True, null=True, verbose_name=_("Comment"))
 
