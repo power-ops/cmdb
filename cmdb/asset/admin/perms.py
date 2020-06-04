@@ -10,3 +10,4 @@ class PermsAdmin(VersionAdmin):
     list_display = ['Name', 'Enabled', 'CreateDate']
     form = forms.PermsForm
     list_per_page = 30
+    date_hierarchy = 'CreateDate'

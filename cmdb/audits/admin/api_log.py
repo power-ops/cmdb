@@ -13,6 +13,8 @@ class ApiLogAdmin(VersionAdmin):
     # form = forms.AssetForm
     readonly_fields = ('CreateDate',)
     list_per_page = 30
+    date_hierarchy = 'CreateDate'
+    ordering = ('-id',)
 
     # fields = ['Hostname', 'IP', 'Protocols', 'Labels', 'Platform', 'Enabled', 'CreateDate']
     def has_add_permission(self, request):

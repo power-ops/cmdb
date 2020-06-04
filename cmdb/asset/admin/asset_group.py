@@ -13,6 +13,7 @@ class AssteGroupAdmin(VersionAdmin):
     readonly_fields = ('CreateDate',)
     fields = ['Name', 'Assets', 'Enabled', 'CreateDate']
     list_per_page = 30
+    date_hierarchy = 'CreateDate'
 
     def has_view_permission(self, request, obj=None):
         """

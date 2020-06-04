@@ -12,6 +12,7 @@ class SystemUserAdmin(VersionAdmin):
     form = forms.SystemUserForm
     readonly_fields = ('CreateDate', 'LastPassword')
     list_per_page = 30
+    date_hierarchy = 'CreateDate'
 
     def has_view_permission(self, request, obj=None):
         """
