@@ -1,28 +1,18 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel
+from utils.mixin import MixinModel, MixinQuerySet, UUIDManager
 from .protocol import Protocol
 from .platform import Platform
 from .label import Label
 
 
-class AssetQuerySet(models.QuerySet):
-    def active(self):
-        return self.filter(Enabled=True)
-
-    def valid(self):
-        return self.active()
-
-    def has_protocol(self, name):
-        return self.filter(protocols__contains=name)
+class AssetQuerySet(MixinQuerySet):
+    pass
 
 
-class AssetManager(models.Manager):
+class AssetManager(UUIDManager):
     def get_queryset(self):
         return AssetQuerySet(self.model, using=self._db)
-
-    def get_by_id(self, id):
-        return self.get_queryset().filter(uuid=id).first()
 
 
 class Asset(MixinModel):

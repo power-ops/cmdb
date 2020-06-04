@@ -61,14 +61,14 @@ class AssetGroupViewSet(APIView):
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
-            if cache.get('AssetGroupViewSet_get_' + request.user.username):
-                queryset = cache.get('AssetGroupViewSet_get_' + request.user.username)
+            if cache.get('AssetGroupViewSet.get.' + request.user.username):
+                queryset = cache.get('AssetGroupViewSet.get.' + request.user.username)
             else:
                 for res in Permission.objects.filter(Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(
                         User=request.user.id)):
                     queryset += list(res.AssetGroup.all())
                 queryset = list(set(queryset))
-                cache.set('AssetGroupViewSet_get_' + request.user.username, queryset)
+                cache.set('AssetGroupViewSet.get.' + request.user.username, queryset)
             if uuid:
                 aim = AssetGroup.objects.filter(uuid=uuid)
                 if aim in queryset:

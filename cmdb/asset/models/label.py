@@ -1,22 +1,14 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel
+from utils.mixin import MixinModel, MixinQuerySet, UUIDManager
 
 
-class LabelQuerySet(models.QuerySet):
-    def active(self):
-        return self.filter(Enabled=True)
-
-    def valid(self):
-        return self.active()
+class LabelQuerySet(MixinQuerySet):
+    pass
 
 
-class LabelManager(models.Manager):
-    def get_queryset(self):
-        return LabelQuerySet(self.model, using=self._db)
-
-    def get_by_id(self, id):
-        return self.get_queryset().filter(uuid=id).first()
+class LabelManager(UUIDManager):
+    pass
 
 
 class Label(MixinModel):

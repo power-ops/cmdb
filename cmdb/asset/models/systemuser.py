@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel
+from utils.mixin import MixinModel, UUIDManager
 from utils.password import encrypt_ecb, decrypt_ecb, gen
 
 
@@ -8,13 +8,10 @@ class SystemUserQuerySet(models.QuerySet):
     pass
 
 
-class SystemUserManager(models.Manager):
-    def get_queryset(self):
-        return SystemUserQuerySet(self.model, using=self._db)
-
-    def get_by_id(self, id):
-        return self.get_queryset().filter(uuid=id).first()
-
+class SystemUserManager(UUIDManager):
+    # def get_queryset(self):
+    #     return SystemUserQuerySet(self.model, using=self._db)
+    pass
 
 class SystemUser(MixinModel):
     Name = models.CharField(_('Name'), max_length=64, unique=True)
@@ -63,3 +60,11 @@ class SystemUser(MixinModel):
     class Meta:
         verbose_name = _('System User')
         verbose_name_plural = _('System User')
+
+    # def save(self, *args, **kwargs):
+    #     print(self)
+    #     print(self.__class__)
+    #     print(SystemUser)
+    #     # cache.delete(self.__class__.__name__ + '.objects.all()')
+    #     # super(SystemUser, self).save(*args, **kwargs)
+    #     super(self.__class__, self).save(*args, **kwargs)

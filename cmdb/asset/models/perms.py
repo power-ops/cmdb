@@ -2,21 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.utils.translation import ugettext_lazy as _
 from asset.models import Asset, SystemUser, AssetGroup
-from utils.mixin import MixinModel
+from utils.mixin import MixinModel, UUIDManager, MixinQuerySet
 
 
-class PermissionQuerySet(models.QuerySet):
-    def active(self):
-        return self.filter(Enabled=True)
-
-    def valid(self):
-        return self.active()
-
-    def has_protocol(self, name):
-        return self.filter(protocols__contains=name)
+class PermissionQuerySet(MixinQuerySet):
+    pass
 
 
-class PermissionManager(models.Manager):
+class PermissionManager(UUIDManager):
     pass
 
 

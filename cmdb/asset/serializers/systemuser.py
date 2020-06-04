@@ -62,14 +62,14 @@ class SystemUserViewSet(APIView):
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
-            if cache.get('SystemUserViewSet_get_' + request.user.username):
-                queryset = cache.get('SystemUserViewSet_get_' + request.user.username)
+            if cache.get('SystemUserViewSet.get.' + request.user.username):
+                queryset = cache.get('SystemUserViewSet.get.' + request.user.username)
             else:
                 for res in Permission.objects.filter(Q(UserGroup__in=[g.id for g in request.user.groups.all()]) | Q(
                         User=request.user.id)):
                     queryset += list(res.SystemUser.all())
                 queryset = list(set(queryset))
-                cache.set('SystemUserViewSet_get_' + request.user.username, queryset)
+                cache.set('SystemUserViewSet.get.' + request.user.username, queryset)
             if uuid:
                 aim = SystemUser.objects.filter(uuid=uuid)
                 if aim in queryset:

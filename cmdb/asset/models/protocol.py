@@ -1,18 +1,14 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinModel
+from utils.mixin import MixinModel, UUIDManager, MixinQuerySet
 
 
-class ProtocolQuerySet(models.QuerySet):
+class ProtocolQuerySet(MixinQuerySet):
     pass
 
 
-class ProtocolManager(models.Manager):
-    def get_queryset(self):
-        return ProtocolQuerySet(self.model, using=self._db)
-
-    def get_by_id(self, id):
-        return self.get_queryset().filter(id=id).first()
+class ProtocolManager(UUIDManager):
+    pass
 
 
 class Protocol(MixinModel):
