@@ -21,7 +21,7 @@ class ApiLog(MixinModel):
     StatusCode = models.IntegerField(verbose_name=_('Status Code'), null=True)
 
     objects = ApiLogManager()
-    _cache_bypass = True
+    _cache_all_bypass = True
 
     class Meta:
         verbose_name = _('ApiLog')

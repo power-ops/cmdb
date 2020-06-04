@@ -8,7 +8,7 @@ from django.core.cache import cache
 class MixinModel(models.Model):
     Enabled = models.BooleanField(_('Enabled'), default=True)
     CreateDate = models.DateTimeField(_('Create Date'), default=timezone.now)
-    _cache_bypass = False
+    _cache_all_bypass = False
 
     def disable(self):
         self.Enabled = False
@@ -22,7 +22,7 @@ class MixinModel(models.Model):
         abstract = True
 
     def save(self, *args, **kwargs):
-        if not self._cache_bypass:
+        if not self._cache_all_bypass:
             cache.delete(self.__class__.__name__ + '.objects.all()')
         super(MixinModel, self).save(*args, **kwargs)
 
