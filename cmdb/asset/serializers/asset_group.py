@@ -2,7 +2,6 @@ from rest_framework import serializers
 from asset.models import AssetGroup
 from utils import admin
 from rest_framework.response import Response
-from rest_framework import status
 from django.db.models import Q
 from asset.models import Permission
 from django.core.cache import cache

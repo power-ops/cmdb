@@ -2,7 +2,6 @@ from rest_framework import serializers
 from asset.models import Permission
 from utils import admin
 from rest_framework.response import Response
-from rest_framework import status
 from utils.mixin import MixinAPIView
 
 
