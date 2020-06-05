@@ -24,13 +24,13 @@ class AssetGroupViewSet(MixinAPIView):
 
     @admin.api_permission('view', 'asset.view_self_asset')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('asset.view_self_asset'):
+        if request.user.has_perm(self._class_name + '.view_' + self._class_name):
             if uuid:
-                snippet = AssetGroup.objects.get_by_id(uuid)
-                serializer = AssetGroupSerializer(snippet)
+                snippet = self.model.objects.get_by_id(uuid)
+                serializer = self.serializer_class(snippet)
             else:
-                queryset = AssetGroup.objects.all()
-                serializer = AssetGroupSerializer(queryset, many=True)
+                queryset = self.model.objects.all()
+                serializer = self.serializer_class(queryset, many=True)
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
@@ -43,12 +43,12 @@ class AssetGroupViewSet(MixinAPIView):
                 queryset = list(set(queryset))
                 cache.set('AssetGroupViewSet.get.' + request.user.username, queryset)
             if uuid:
-                aim = AssetGroup.objects.filter(uuid=uuid)
+                aim = self.model.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = AssetGroup.objects.get_by_id(uuid)
-                    serializer = AssetGroupSerializer(snippet)
+                    snippet = self.model.objects.get_by_id(uuid)
+                    serializer = self.serializer_class(snippet)
                 else:
-                    serializer = AssetGroupSerializer(None, many=True)
+                    serializer = self.serializer_class(None, many=True)
             else:
-                serializer = AssetGroupSerializer(queryset, many=True)
+                serializer = self.serializer_class(queryset, many=True)
             return Response(serializer.data)

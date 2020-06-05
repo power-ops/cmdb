@@ -22,7 +22,7 @@ class ProtocolViewSet(MixinAPIView):
 
     @admin.api_permission('view', 'asset.view_self_assets')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('asset.view_self_assets'):
+        if request.user.has_perm(self._class_name + '.view_' + self._class_name):
             if uuid:
                 snippet = self.model.objects.get_by_id(uuid)
                 serializer = self.serializer_class(snippet)

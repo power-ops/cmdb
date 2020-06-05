@@ -20,16 +20,17 @@ class SystemUserSerializer(serializers.ModelSerializer):
 
 class SystemUserViewSet(MixinAPIView):
     serializer_class = SystemUserSerializer
+    model = SystemUser
 
     @admin.api_permission('view', 'asset.view_self_assets')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('asset.view_self_assets'):
+        if request.user.has_perm(self._class_name + '.view_' + self._class_name):
             if uuid:
-                snippet = SystemUser.objects.get_by_id(uuid)
-                serializer = SystemUserSerializer(snippet)
+                snippet = self.model.objects.get_by_id(uuid)
+                serializer = self.serializer_class(snippet)
             else:
-                queryset = SystemUser.objects.all()
-                serializer = SystemUserSerializer(queryset, many=True)
+                queryset = self.model.objects.all()
+                serializer = self.serializer_class(queryset, many=True)
             return Response(serializer.data)
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
@@ -42,30 +43,12 @@ class SystemUserViewSet(MixinAPIView):
                 queryset = list(set(queryset))
                 cache.set('SystemUserViewSet.get.' + request.user.username, queryset)
             if uuid:
-                aim = SystemUser.objects.filter(uuid=uuid)
+                aim = self.model.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = SystemUser.objects.get_by_id(uuid)
-                    serializer = SystemUserSerializer(snippet)
+                    snippet = self.model.objects.get_by_id(uuid)
+                    serializer = self.serializer_class(snippet)
                 else:
-                    serializer = SystemUserSerializer(None, many=True)
+                    serializer = self.serializer_class(None, many=True)
             else:
-                serializer = SystemUserSerializer(queryset, many=True)
+                serializer = self.serializer_class(queryset, many=True)
             return Response(serializer.data)
-
-    @admin.api_permission('add')
-    def post(self, request, uuid=None, format=None):
-        if uuid:
-            snippet = SystemUser.objects.get_by_id(uuid)
-            serializer = SystemUserSerializer(snippet, data=request.data)
-        else:
-            serializer = SystemUserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('delete')
-    def delete(self, request, uuid, format=None):
-        snippet = SystemUser.objects.get_by_id(uuid)
-        snippet.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)

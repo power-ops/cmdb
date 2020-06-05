@@ -19,9 +19,9 @@ class AssetViewSet(MixinAPIView):
     serializer_class = AssetSerializer
     model = Asset
 
-    @admin.api_permission('view_self', 'view')
+    @admin.api_permission('asset.view_self_asset', 'view')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('asset.view_assets'):
+        if request.user.has_perm(self._class_name + '.view_' + self._class_name):
             if uuid:
                 snippet = self.model.objects.get_by_id(uuid)
                 serializer = self.serializer_class(snippet)
