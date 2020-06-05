@@ -66,4 +66,8 @@ class MixinAPIView(APIView):
                 serializer = self.serializer_class(queryset, many=True)
             return serializer.data
         else:
-            return self.get_serialiser_data_by_uuid(uuid, self.model.objects.all())
+            all = self.model.objects.all()
+            if all:
+                return self.get_serialiser_data_by_uuid(uuid, all)
+            else:
+                raise Http404
