@@ -53,3 +53,17 @@ class MixinAPIView(APIView):
         snippet = self.get_object(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def get_serialiser_data_by_uuid(self, uuid=None, queryset=None):
+        if queryset:
+            if uuid:
+                aim = self.get_object(uuid)
+                if aim in queryset:
+                    serializer = self.serializer_class(aim)
+                else:
+                    serializer = self.serializer_class(None, many=True)
+            else:
+                serializer = self.serializer_class(queryset, many=True)
+            return serializer.data
+        else:
+            return self.get_serialiser_data_by_uuid(uuid, self.model.objects.all())

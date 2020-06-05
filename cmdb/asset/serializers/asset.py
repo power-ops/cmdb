@@ -22,22 +22,6 @@ class AssetViewSet(MixinAPIView):
     @admin.api_permission('asset.view_self_asset', 'view')
     def get(self, request, uuid=None, format=None):
         if request.user.has_perm(self._class_name + '.view_' + self._class_name):
-            if uuid:
-                snippet = self.get_object(uuid)
-                serializer = self.serializer_class(snippet)
-            else:
-                queryset = self.model.objects.all()
-                serializer = self.serializer_class(queryset, many=True)
-            return Response(serializer.data)
+            return Response(self.get_serialiser_data_by_uuid(uuid))
         elif request.user.has_perm('asset.view_self_assets'):
-            queryset = getSelfAssets(request)
-            if uuid:
-                aim = self.model.objects.filter(uuid=uuid)
-                if aim in queryset:
-                    snippet = self.get_object(uuid)
-                    serializer = self.serializer_class(snippet)
-                else:
-                    serializer = self.serializer_class(None, many=True)
-            else:
-                serializer = self.serializer_class(queryset, many=True)
-            return Response(serializer.data)
+            return Response(self.get_serialiser_data_by_uuid(uuid, getSelfAssets(request)))

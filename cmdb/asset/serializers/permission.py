@@ -20,10 +20,4 @@ class PermissionViewSet(MixinAPIView):
 
     @admin.api_permission('view')
     def get(self, request, uuid=None, format=None):
-        if uuid:
-            snippet = self.get_object(uuid)
-            serializer = self.serializer_class(snippet)
-        else:
-            queryset = self.model.objects.all()
-            serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
+        return Response(self.get_serialiser_data_by_uuid(uuid))
