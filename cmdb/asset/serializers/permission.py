@@ -3,7 +3,6 @@ from asset.models import Permission
 from utils import admin
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
 from utils.mixin import MixinAPIView
 
 
@@ -19,16 +18,10 @@ class PermissionSerializer(serializers.ModelSerializer):
 class PermissionViewSet(MixinAPIView):
     serializer_class = PermissionSerializer
 
-    def get_object(self, pk):
-        try:
-            return Permission.objects.get(pk=pk)
-        except Permission.DoesNotExist:
-            raise Http404
-
     @admin.api_permission('view')
     def get(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.get_object(uuid)
+            snippet = Permission.objects.get_by_id(uuid)
             serializer = PermissionSerializer(snippet)
         else:
             queryset = Permission.objects.all()
@@ -38,7 +31,7 @@ class PermissionViewSet(MixinAPIView):
     @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.get_object(uuid)
+            snippet = Permission.objects.get_by_id(uuid)
             serializer = PermissionSerializer(snippet, data=request.data)
         else:
             serializer = PermissionSerializer(data=request.data)
@@ -49,6 +42,6 @@ class PermissionViewSet(MixinAPIView):
 
     @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
-        snippet = self.get_object(uuid)
+        snippet = Permission.objects.get_by_id(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

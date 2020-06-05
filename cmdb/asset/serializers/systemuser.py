@@ -3,7 +3,6 @@ from asset.models import SystemUser
 from utils import admin
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
 from django.db.models import Q
 from asset.models import Permission
 from django.core.cache import cache
@@ -22,17 +21,11 @@ class SystemUserSerializer(serializers.ModelSerializer):
 class SystemUserViewSet(MixinAPIView):
     serializer_class = SystemUserSerializer
 
-    def get_object(self, pk):
-        try:
-            return SystemUser.objects.get(pk=pk)
-        except SystemUser.DoesNotExist:
-            raise Http404
-
     @admin.api_permission('view', 'asset.view_self_assets')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('systemuser.view_systemuser'):
+        if request.user.has_perm('asset.view_self_assets'):
             if uuid:
-                snippet = self.get_object(uuid)
+                snippet = SystemUser.objects.get_by_id(uuid)
                 serializer = SystemUserSerializer(snippet)
             else:
                 queryset = SystemUser.objects.all()
@@ -51,7 +44,7 @@ class SystemUserViewSet(MixinAPIView):
             if uuid:
                 aim = SystemUser.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = self.get_object(uuid)
+                    snippet = SystemUser.objects.get_by_id(uuid)
                     serializer = SystemUserSerializer(snippet)
                 else:
                     serializer = SystemUserSerializer(None, many=True)
@@ -62,7 +55,7 @@ class SystemUserViewSet(MixinAPIView):
     @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.get_object(uuid)
+            snippet = SystemUser.objects.get_by_id(uuid)
             serializer = SystemUserSerializer(snippet, data=request.data)
         else:
             serializer = SystemUserSerializer(data=request.data)
@@ -73,6 +66,6 @@ class SystemUserViewSet(MixinAPIView):
 
     @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
-        snippet = self.get_object(uuid)
+        snippet = SystemUser.objects.get_by_id(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

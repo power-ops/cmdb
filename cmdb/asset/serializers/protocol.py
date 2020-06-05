@@ -3,7 +3,6 @@ from asset.models import Protocol
 from utils import admin
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
 from asset.views import getSelfAssets
 from utils.mixin import MixinAPIView
 
@@ -20,17 +19,11 @@ class ProtocolSerializer(serializers.ModelSerializer):
 class ProtocolViewSet(MixinAPIView):
     serializer_class = ProtocolSerializer
 
-    def get_object(self, pk):
-        try:
-            return Protocol.objects.get(pk=pk)
-        except Protocol.DoesNotExist:
-            raise Http404
-
     @admin.api_permission('view', 'asset.view_self_assets')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('protocol.view_protocol'):
+        if request.user.has_perm('asset.view_self_assets'):
             if uuid:
-                snippet = self.get_object(uuid)
+                snippet = Protocol.objects.get_by_id(uuid)
                 serializer = ProtocolSerializer(snippet)
             else:
                 queryset = Protocol.objects.all()
@@ -44,7 +37,7 @@ class ProtocolViewSet(MixinAPIView):
             if uuid:
                 aim = Protocol.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = self.get_object(uuid)
+                    snippet = Protocol.objects.get_by_id(uuid)
                     serializer = ProtocolSerializer(snippet)
                 else:
                     serializer = ProtocolSerializer(None, many=True)
@@ -55,7 +48,7 @@ class ProtocolViewSet(MixinAPIView):
     @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.get_object(uuid)
+            snippet = Protocol.objects.get_by_id(uuid)
             serializer = ProtocolSerializer(snippet, data=request.data)
         else:
             serializer = ProtocolSerializer(data=request.data)
@@ -66,6 +59,6 @@ class ProtocolViewSet(MixinAPIView):
 
     @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
-        snippet = self.get_object(uuid)
+        snippet = Protocol.objects.get_by_id(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

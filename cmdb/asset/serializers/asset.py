@@ -3,7 +3,6 @@ from asset.models import Asset
 from utils import admin
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
 from asset.views import getSelfAssets
 from utils.mixin import MixinAPIView
 
@@ -20,17 +19,11 @@ class AssetSerializer(serializers.ModelSerializer):
 class AssetViewSet(MixinAPIView):
     serializer_class = AssetSerializer
 
-    def get_object(self, pk):
-        try:
-            return Asset.objects.get(pk=pk)
-        except Asset.DoesNotExist:
-            raise Http404
-
     @admin.api_permission('view_self', 'view')
     def get(self, request, uuid=None, format=None):
         if request.user.has_perm('asset.view_assets'):
             if uuid:
-                snippet = self.get_object(uuid)
+                snippet = Asset.objects.get_by_id(uuid)
                 serializer = AssetSerializer(snippet)
             else:
                 queryset = Asset.objects.all()
@@ -41,7 +34,7 @@ class AssetViewSet(MixinAPIView):
             if uuid:
                 aim = Asset.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = self.get_object(uuid)
+                    snippet = Asset.objects.get_by_id(uuid)
                     serializer = AssetSerializer(snippet)
                 else:
                     serializer = AssetSerializer(None, many=True)
@@ -52,7 +45,7 @@ class AssetViewSet(MixinAPIView):
     @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.get_object(uuid)
+            snippet = Asset.objects.get_by_id(uuid)
             serializer = AssetSerializer(snippet, data=request.data)
         else:
             serializer = AssetSerializer(data=request.data)
@@ -63,6 +56,6 @@ class AssetViewSet(MixinAPIView):
 
     @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
-        snippet = self.get_object(uuid)
+        snippet = Asset.objects.get_by_id(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

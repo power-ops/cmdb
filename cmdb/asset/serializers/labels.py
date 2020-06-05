@@ -3,7 +3,6 @@ from asset.models import Label
 from utils import admin
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
 from asset.views import getSelfAssets
 from utils.mixin import MixinAPIView
 
@@ -20,17 +19,11 @@ class LabelSerializer(serializers.ModelSerializer):
 class LabelViewSet(MixinAPIView):
     serializer_class = LabelSerializer
 
-    def get_object(self, pk):
-        try:
-            return Label.objects.get(pk=pk)
-        except Label.DoesNotExist:
-            raise Http404
-
     @admin.api_permission('view', 'asset.view_self_assets')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('label.view_label'):
+        if request.user.has_perm('asset.view_self_assets'):
             if uuid:
-                snippet = self.get_object(uuid)
+                snippet = Label.objects.get_by_id(uuid)
                 serializer = LabelSerializer(snippet)
             else:
                 queryset = Label.objects.all()
@@ -44,7 +37,7 @@ class LabelViewSet(MixinAPIView):
             if uuid:
                 aim = Label.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = self.get_object(uuid)
+                    snippet = Label.objects.get_by_id(uuid)
                     serializer = LabelSerializer(snippet)
                 else:
                     serializer = LabelSerializer(None, many=True)
@@ -55,7 +48,7 @@ class LabelViewSet(MixinAPIView):
     @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.get_object(uuid)
+            snippet = Label.objects.get_by_id(uuid)
             serializer = LabelSerializer(snippet, data=request.data)
         else:
             serializer = LabelSerializer(data=request.data)
@@ -66,6 +59,6 @@ class LabelViewSet(MixinAPIView):
 
     @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
-        snippet = self.get_object(uuid)
+        snippet = Label.objects.get_by_id(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -3,7 +3,6 @@ from asset.models import AssetGroup
 from utils import admin
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
 from django.db.models import Q
 from asset.models import Permission
 from django.core.cache import cache
@@ -22,17 +21,11 @@ class AssetGroupSerializer(serializers.ModelSerializer):
 class AssetGroupViewSet(MixinAPIView):
     serializer_class = AssetGroupSerializer
 
-    def get_object(self, pk):
-        try:
-            return AssetGroup.objects.get(pk=pk)
-        except AssetGroup.DoesNotExist:
-            raise Http404
-
     @admin.api_permission('view', 'asset.view_self_asset')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('assetgroup.view_assetgroup'):
+        if request.user.has_perm('asset.view_self_asset'):
             if uuid:
-                snippet = self.get_object(uuid)
+                snippet = AssetGroup.objects.get_by_id(uuid)
                 serializer = AssetGroupSerializer(snippet)
             else:
                 queryset = AssetGroup.objects.all()
@@ -51,7 +44,7 @@ class AssetGroupViewSet(MixinAPIView):
             if uuid:
                 aim = AssetGroup.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = self.get_object(uuid)
+                    snippet = AssetGroup.objects.get_by_id(uuid)
                     serializer = AssetGroupSerializer(snippet)
                 else:
                     serializer = AssetGroupSerializer(None, many=True)
@@ -62,7 +55,7 @@ class AssetGroupViewSet(MixinAPIView):
     @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.get_object(uuid)
+            snippet = AssetGroup.objects.get_by_id(uuid)
             serializer = AssetGroupSerializer(snippet, data=request.data)
         else:
             serializer = AssetGroupSerializer(data=request.data)
@@ -73,6 +66,6 @@ class AssetGroupViewSet(MixinAPIView):
 
     @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
-        snippet = self.get_object(uuid)
+        snippet = AssetGroup.objects.get_by_id(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
