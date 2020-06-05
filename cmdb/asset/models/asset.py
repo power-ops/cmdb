@@ -33,7 +33,7 @@ class Asset(MixinUUIDModel):
     class Meta:
         verbose_name = _('Asset')
         verbose_name_plural = _('Asset')
-        permissions = [('view_self_assets', 'Can view self assets')]
+        permissions = [('view_self_asset', 'Can view self assets')]
 
     def get_protocols(self):
         return [p.__str__() for p in self.Protocols.all()]

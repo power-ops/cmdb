@@ -2,10 +2,9 @@ from rest_framework import serializers
 from asset.models import Permission
 from utils import admin
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
-from rest_framework.request import Request
+from utils.mixin import MixinAPIView
 
 
 class PermissionSerializer(serializers.ModelSerializer):
@@ -17,7 +16,7 @@ class PermissionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PermissionViewSet(APIView):
+class PermissionViewSet(MixinAPIView):
     serializer_class = PermissionSerializer
 
     def get_object(self, pk):
@@ -26,28 +25,7 @@ class PermissionViewSet(APIView):
         except Permission.DoesNotExist:
             raise Http404
 
-    def http_methods(self, request):
-        self.http_method_names = ['options', 'head', 'get']
-        if 'post' not in self.http_method_names and request.user.has_perm('permission.add_permission'):
-            self.http_method_names.append("post")
-        if 'delete' not in self.http_method_names and request.user.has_perm('permission.delete_permission'):
-            self.http_method_names.append("delete")
-
-    def initialize_request(self, request, *args, **kwargs):
-        """
-        Returns the initial request object.
-        """
-        self.http_methods(request)
-        parser_context = self.get_parser_context(request)
-        return Request(
-            request,
-            parsers=self.get_parsers(),
-            authenticators=self.get_authenticators(),
-            negotiator=self.get_content_negotiator(),
-            parser_context=parser_context
-        )
-
-    @admin.api_permission('premission.view_premission')
+    @admin.api_permission('view')
     def get(self, request, uuid=None, format=None):
         if uuid:
             snippet = self.get_object(uuid)
@@ -57,7 +35,7 @@ class PermissionViewSet(APIView):
             serializer = PermissionSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    @admin.api_permission('premission.add_premission')
+    @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
             snippet = self.get_object(uuid)
@@ -69,7 +47,7 @@ class PermissionViewSet(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @admin.api_permission('premission.delete_premission')
+    @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
         snippet = self.get_object(uuid)
         snippet.delete()

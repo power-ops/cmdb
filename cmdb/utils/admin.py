@@ -22,6 +22,8 @@ def api_permission(*perms: str):
     def decorator(func):
         def wrapper(api, request, *args, **kwargs):
             for perm in perms:
+                if '.' not in perm:
+                    perm = api._class_name + '.' + perm + '_' + api._class_name
                 if request.user.has_perm(perm):
                     log = ApiLog.objects.create(Class=api.__class__.__name__,
                                                 Function=func.__name__,
