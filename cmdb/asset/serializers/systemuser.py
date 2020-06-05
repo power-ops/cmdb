@@ -2,7 +2,6 @@ from rest_framework import serializers
 from asset.models import SystemUser
 from utils import admin
 from rest_framework.response import Response
-from rest_framework import status
 from django.db.models import Q
 from asset.models import Permission
 from django.core.cache import cache
@@ -26,7 +25,7 @@ class SystemUserViewSet(MixinAPIView):
     def get(self, request, uuid=None, format=None):
         if request.user.has_perm(self._class_name + '.view_' + self._class_name):
             if uuid:
-                snippet = self.model.objects.get_by_id(uuid)
+                snippet = self.get_object(uuid)
                 serializer = self.serializer_class(snippet)
             else:
                 queryset = self.model.objects.all()
@@ -45,7 +44,7 @@ class SystemUserViewSet(MixinAPIView):
             if uuid:
                 aim = self.model.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = self.model.objects.get_by_id(uuid)
+                    snippet = self.get_object(uuid)
                     serializer = self.serializer_class(snippet)
                 else:
                     serializer = self.serializer_class(None, many=True)

@@ -3,9 +3,16 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from utils import admin
+from django.http import Http404
 
 
 class MixinAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return self.model.objects.get(pk=pk)
+        except self.model.DoesNotExist:
+            raise Http404
+
     def http_methods(self, request):
         self._class_name = str(self.__class__).split('.')[-2]
         if 'post' not in self.http_method_names and request.user.has_perm(
@@ -32,7 +39,7 @@ class MixinAPIView(APIView):
     @admin.api_permission('add')
     def post(self, request, uuid=None, format=None):
         if uuid:
-            snippet = self.model.objects.get_by_id(uuid)
+            snippet = self.get_object(uuid)
             serializer = self.serializer_class(snippet, data=request.data)
         else:
             serializer = self.serializer_class(data=request.data)
@@ -43,6 +50,6 @@ class MixinAPIView(APIView):
 
     @admin.api_permission('delete')
     def delete(self, request, uuid, format=None):
-        snippet = self.model.objects.get_by_id(uuid)
+        snippet = self.get_object(uuid)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

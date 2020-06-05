@@ -26,7 +26,7 @@ class AssetGroupViewSet(MixinAPIView):
     def get(self, request, uuid=None, format=None):
         if request.user.has_perm(self._class_name + '.view_' + self._class_name):
             if uuid:
-                snippet = self.model.objects.get_by_id(uuid)
+                snippet = self.get_object(uuid)
                 serializer = self.serializer_class(snippet)
             else:
                 queryset = self.model.objects.all()
@@ -45,7 +45,7 @@ class AssetGroupViewSet(MixinAPIView):
             if uuid:
                 aim = self.model.objects.filter(uuid=uuid)
                 if aim in queryset:
-                    snippet = self.model.objects.get_by_id(uuid)
+                    snippet = self.get_object(uuid)
                     serializer = self.serializer_class(snippet)
                 else:
                     serializer = self.serializer_class(None, many=True)
