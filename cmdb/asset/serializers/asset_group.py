@@ -20,6 +20,7 @@ class AssetGroupSerializer(serializers.ModelSerializer):
 
 class AssetGroupViewSet(MixinAPIView):
     serializer_class = AssetGroupSerializer
+    model = AssetGroup
 
     @admin.api_permission('view', 'asset.view_self_asset')
     def get(self, request, uuid=None, format=None):
@@ -51,21 +52,3 @@ class AssetGroupViewSet(MixinAPIView):
             else:
                 serializer = AssetGroupSerializer(queryset, many=True)
             return Response(serializer.data)
-
-    @admin.api_permission('add')
-    def post(self, request, uuid=None, format=None):
-        if uuid:
-            snippet = AssetGroup.objects.get_by_id(uuid)
-            serializer = AssetGroupSerializer(snippet, data=request.data)
-        else:
-            serializer = AssetGroupSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('delete')
-    def delete(self, request, uuid, format=None):
-        snippet = AssetGroup.objects.get_by_id(uuid)
-        snippet.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
