@@ -46,6 +46,8 @@ class MixinQuerySet(models.QuerySet):
 
 
 class MixinManager(models.Manager):
+    _cache_all_bypass = False
+
     def get_by_id(self, id):
         return self.get_queryset().filter(id=id).first()
 
@@ -53,6 +55,8 @@ class MixinManager(models.Manager):
         return MixinQuerySet(self.model, using=self._db)
 
     def all(self):
+        if self._cache_all_bypass:
+            return self.get_queryset().all()
         _class = str(self).split('.')[-2]
         if cache.get(_class + '.objects.all()'):
             return cache.get(_class + '.objects.all()')

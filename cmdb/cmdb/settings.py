@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'certificate',
     'dns',
     'domain',
+    'worklink',
 ]
 
 MIDDLEWARE = [
