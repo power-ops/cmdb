@@ -20,12 +20,14 @@ from django.conf import settings
 from .views import index
 
 api_urls = [
-    path('asset/', include('asset.apis'), name='asset_api')
+    path('asset/', include('asset.apis'), name='asset_api'),
+    path('domain/', include('domain.apis'), name='domain_api')
 ]
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls, name='admin'),
     path('asset/', include('asset.urls'), name='asset'),
+    path('domain/', include('domain.urls'), name='domain'),
     path('api/', include(api_urls), name='api'),
 ]
 
@@ -51,3 +53,4 @@ if settings.DEBUG:
         url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
         url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     ]
+    # redoc 页面有bug，缺 position: fixed 等前端bug，暂时没有找到项目PR

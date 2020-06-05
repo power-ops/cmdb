@@ -1,11 +1,9 @@
 from rest_framework import serializers
 from asset.models import Permission
-from utils import admin
-from rest_framework.response import Response
 from utils.mixin import MixinAPIView
 
 
-class PermissionSerializer(serializers.ModelSerializer):
+class PermissionSerializer(serializers.HyperlinkedModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     CreateDate = serializers.CharField(read_only=True)
 

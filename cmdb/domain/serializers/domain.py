@@ -1,12 +1,9 @@
 from rest_framework import serializers
-from rest_framework.views import APIView
-from django.http import Http404
-from rest_framework.request import Request
 from domain.models import Domain
 from utils.mixin import MixinAPIView
 
 
-class DomainSerializer(serializers.ModelSerializer):
+class DomainSerializer(serializers.HyperlinkedModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     CreateDate = serializers.CharField(read_only=True)
 

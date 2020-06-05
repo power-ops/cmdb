@@ -8,7 +8,7 @@ from django.core.cache import cache
 from utils.mixin import MixinAPIView
 
 
-class SystemUserSerializer(serializers.ModelSerializer):
+class SystemUserSerializer(serializers.HyperlinkedModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     CreateDate = serializers.CharField(read_only=True)
 
