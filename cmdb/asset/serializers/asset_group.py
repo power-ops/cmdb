@@ -2,13 +2,10 @@ from rest_framework import serializers
 from asset.models import AssetGroup
 from utils import admin
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import status
-from django.http import Http404
 from django.db.models import Q
 from asset.models import Permission
-from rest_framework.request import Request
 from django.core.cache import cache
+from utils.mixin import MixinAPIView
 
 
 class AssetGroupSerializer(serializers.ModelSerializer):
@@ -20,45 +17,14 @@ class AssetGroupSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AssetGroupViewSet(APIView):
+class AssetGroupViewSet(MixinAPIView):
     serializer_class = AssetGroupSerializer
+    model = AssetGroup
 
-    def get_object(self, pk):
-        try:
-            return AssetGroup.objects.get(pk=pk)
-        except AssetGroup.DoesNotExist:
-            raise Http404
-
-    def http_methods(self, request):
-        if 'post' not in self.http_method_names and request.user.has_perm('assetgroup.add_assetgroup'):
-            self.http_method_names.append("post")
-        if 'delete' not in self.http_method_names and request.user.has_perm('assetgroup.delete_assetgroup'):
-            self.http_method_names.append("delete")
-
-    def initialize_request(self, request, *args, **kwargs):
-        """
-        Returns the initial request object.
-        """
-        self.http_methods(request)
-        parser_context = self.get_parser_context(request)
-        return Request(
-            request,
-            parsers=self.get_parsers(),
-            authenticators=self.get_authenticators(),
-            negotiator=self.get_content_negotiator(),
-            parser_context=parser_context
-        )
-
-    @admin.api_permission('assetgroup.view_assetgroup', 'asset.view_self_assets')
+    @admin.api_permission('view', 'asset.view_self_asset')
     def get(self, request, uuid=None, format=None):
-        if request.user.has_perm('assetgroup.view_assetgroup'):
-            if uuid:
-                snippet = self.get_object(uuid)
-                serializer = AssetGroupSerializer(snippet)
-            else:
-                queryset = AssetGroup.objects.all()
-                serializer = AssetGroupSerializer(queryset, many=True)
-            return Response(serializer.data)
+        if request.user.has_perm(self._class_name + '.view_' + self._class_name):
+            return Response(self.get_serialiser_data_by_uuid(uuid))
         elif request.user.has_perm('asset.view_self_assets'):
             queryset = []
             if cache.get('AssetGroupViewSet.get.' + request.user.username):
@@ -69,31 +35,4 @@ class AssetGroupViewSet(APIView):
                     queryset += list(res.AssetGroup.all())
                 queryset = list(set(queryset))
                 cache.set('AssetGroupViewSet.get.' + request.user.username, queryset)
-            if uuid:
-                aim = AssetGroup.objects.filter(uuid=uuid)
-                if aim in queryset:
-                    snippet = self.get_object(uuid)
-                    serializer = AssetGroupSerializer(snippet)
-                else:
-                    serializer = AssetGroupSerializer(None, many=True)
-            else:
-                serializer = AssetGroupSerializer(queryset, many=True)
-            return Response(serializer.data)
-
-    @admin.api_permission('assetgroup.add_assetgroup')
-    def post(self, request, uuid=None, format=None):
-        if uuid:
-            snippet = self.get_object(uuid)
-            serializer = AssetGroupSerializer(snippet, data=request.data)
-        else:
-            serializer = AssetGroupSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @admin.api_permission('assetgroup.delete_assetgroup')
-    def delete(self, request, uuid, format=None):
-        snippet = self.get_object(uuid)
-        snippet.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(self.get_serialiser_data_by_uuid(uuid, queryset))
