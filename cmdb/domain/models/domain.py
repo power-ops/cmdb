@@ -11,7 +11,7 @@ class DomainManager(UUIDManager):
     pass
 
 
-class Domain(MixinUUIDModel):
+class MixinDomain(MixinUUIDModel):
     Name = models.CharField(max_length=128, verbose_name=_('Name'))
     Domain = models.CharField(max_length=128, verbose_name=_('Domain'))
     Status = models.CharField(max_length=128, verbose_name=_('Status'), null=True)
@@ -26,3 +26,8 @@ class Domain(MixinUUIDModel):
         verbose_name = _('Domain')
         verbose_name_plural = _('Domain')
         # permissions = [('view_self_assets', 'Can view self assets')]
+        abstract = True
+
+
+class Domain(MixinDomain):
+    pass

@@ -1,5 +1,5 @@
-from domain.models.domain import Domain as domain
+from domain.models.domain import MixinDomain
 
 
-class Domain(domain):
+class Domain(MixinDomain):
     pass
