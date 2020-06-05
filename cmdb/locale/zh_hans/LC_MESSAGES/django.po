@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-04 16:07+0800\n"
+"POT-Creation-Date: 2020-06-05 15:10+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr "主机名"
 
 #: asset/models/asset.py:21 asset/models/protocol.py:16
 #: asset/models/protocol.py:25 asset/models/protocol.py:26
-#: asset/models/systemuser.py:22
+#: asset/models/systemuser.py:21
 msgid "Protocol"
 msgstr "协议"
 
@@ -71,8 +71,8 @@ msgstr "协议"
 
 #: asset/models/asset_group.py:16 asset/models/label.py:15
 #: asset/models/perms.py:17 asset/models/platform.py:7
-#: asset/models/protocol.py:15 asset/models/systemuser.py:17
-#: dns/models/domain.py:26
+#: asset/models/protocol.py:15 asset/models/systemuser.py:16
+#: domain/models/domain.py:15
 msgid "Name"
 msgstr "名称"
 
@@ -84,7 +84,7 @@ msgstr "资产"
 msgid "Asset Group"
 msgstr "资产组"
 
-#: asset/models/label.py:16 dns/models/record.py:31
+#: asset/models/label.py:16 dns/models/record.py:20
 msgid "Value"
 msgstr "记录值"
 
@@ -100,19 +100,19 @@ msgstr "权限"
 msgid "Port"
 msgstr "端口"
 
-#: asset/models/systemuser.py:18
+#: asset/models/systemuser.py:17
 msgid "Username"
 msgstr "用户名"
 
-#: asset/models/systemuser.py:19
+#: asset/models/systemuser.py:18
 msgid "Password"
 msgstr "密码"
 
-#: asset/models/systemuser.py:20
+#: asset/models/systemuser.py:19
 msgid "Last Password"
 msgstr "历史密码"
 
-#: asset/models/systemuser.py:21
+#: asset/models/systemuser.py:20
 msgid "Key"
 msgstr "密钥"
 
@@ -124,35 +124,31 @@ msgstr "系统用户"
 msgid "Audits"
 msgstr "审计"
 
-#: audits/models/api_log.py:27
+#: audits/models/api_log.py:16
 msgid "Class"
 msgstr "类"
 
-#: audits/models/api_log.py:28
+#: audits/models/api_log.py:17
 msgid "Function"
 msgstr "方法"
 
-#: audits/models/api_log.py:29
+#: audits/models/api_log.py:18
 msgid "User"
 msgstr "用户"
 
-#: audits/models/api_log.py:30
+#: audits/models/api_log.py:19
 msgid "Source IP"
 msgstr "源IP"
 
-#: audits/models/api_log.py:31
+#: audits/models/api_log.py:20
 msgid "URI"
 msgstr "URI"
 
-#: audits/models/api_log.py:32
+#: audits/models/api_log.py:21
 msgid "Status Code"
 msgstr "状态码"
 
-#: audits/models/api_log.py:33 utils/mixin.py:11
-msgid "Create Date"
-msgstr "创建日期"
-
-#: audits/models/api_log.py:38 audits/models/api_log.py:39
+#: audits/models/api_log.py:27 audits/models/api_log.py:28
 msgid "ApiLog"
 msgstr "API日志"
 
@@ -164,105 +160,54 @@ msgstr ""
 msgid "DNS"
 msgstr ""
 
-#: dns/models/domain.py:27 dns/models/domain.py:34 dns/models/domain.py:35
-#: domain/apps.py:7
-msgid "Domain"
-msgstr "域名"
-
-#: dns/models/domain.py:28
-msgid "Status"
-msgstr "状态"
-
-#: dns/models/domain.py:29
-msgid "DNS Server"
-msgstr "DNS主机"
-
-#: dns/models/domain.py:30
-msgid "Expire Date"
-msgstr "过期时间"
-
-#: dns/models/record.py:29
+#: dns/models/record.py:18
 msgid "Prefix"
 msgstr "前缀"
 
-#: dns/models/record.py:30
+#: dns/models/record.py:19
 msgid "Type"
 msgstr "类型"
 
-#: dns/models/record.py:32
+#: dns/models/record.py:21
 msgid "MX Priority"
 msgstr "MX优先级"
 
-#: dns/models/record.py:33
+#: dns/models/record.py:22
 msgid "Circuit"
 msgstr "线路"
 
-#: dns/models/record.py:34
+#: dns/models/record.py:23
 msgid "Weight"
 msgstr "权重"
 
-#: dns/models/record.py:35
+#: dns/models/record.py:24
 msgid "TTL"
 msgstr "TTL"
 
-#: dns/models/record.py:36
+#: dns/models/record.py:25
 msgid "Last Update"
 msgstr "最后操作时间"
 
-#: dns/models/record.py:41 dns/models/record.py:42
+#: dns/models/record.py:33 dns/models/record.py:34
 msgid "Record"
 msgstr "解析记录"
 
-#: utils/authentication.py:56
-msgid "Invalid signature header. No credentials provided."
-msgstr ""
+#: domain/apps.py:7 domain/models/domain.py:16 domain/models/domain.py:26
+#: domain/models/domain.py:27
+msgid "Domain"
+msgstr "域名"
 
-#: utils/authentication.py:59
-msgid "Invalid signature header. Signature string should not contain spaces."
-msgstr ""
+#: domain/models/domain.py:17
+msgid "Status"
+msgstr "状态"
 
-#: utils/authentication.py:66
-msgid "Invalid signature header. Format like AccessKeyId:Signature"
-msgstr ""
+#: domain/models/domain.py:18
+msgid "DNS Server"
+msgstr "DNS主机"
 
-#: utils/authentication.py:70
-msgid ""
-"Invalid signature header. Signature string should not contain invalid "
-"characters."
-msgstr ""
-
-#: utils/authentication.py:90 utils/authentication.py:106
-msgid "Invalid signature."
-msgstr ""
-
-#: utils/authentication.py:97
-msgid "HTTP header: Date not provide or not %a, %d %b %Y %H:%M:%S GMT"
-msgstr ""
-
-#: utils/authentication.py:102
-msgid "Expired, more than 15 minutes"
-msgstr ""
-
-#: utils/authentication.py:109
-msgid "User disabled."
-msgstr ""
-
-#: utils/authentication.py:124
-msgid "Invalid token header. No credentials provided."
-msgstr ""
-
-#: utils/authentication.py:127
-msgid "Invalid token header. Sign string should not contain spaces."
-msgstr ""
-
-#: utils/authentication.py:134
-msgid ""
-"Invalid token header. Sign string should not contain invalid characters."
-msgstr ""
-
-#: utils/authentication.py:145
-msgid "Invalid token or cache refreshed."
-msgstr ""
+#: domain/models/domain.py:19
+msgid "Expire Date"
+msgstr "过期时间"
 
 #: utils/hashers.py:40
 msgid "algorithm"
@@ -280,6 +225,10 @@ msgstr "盐"
 msgid "hash"
 msgstr "哈希"
 
-#: utils/mixin.py:10
+#: utils/mixin.py:9
 msgid "Enabled"
 msgstr "启用"
+
+#: utils/mixin.py:10
+msgid "Create Date"
+msgstr "创建日期"

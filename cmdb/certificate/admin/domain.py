@@ -1,6 +1,6 @@
 from django.contrib import admin
 from domain.admin import DomainAdmin as DA
-from dns import models
+from certificate import models
 
 
 @admin.register(models.Domain)
