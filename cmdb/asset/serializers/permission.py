@@ -17,7 +17,3 @@ class PermissionSerializer(serializers.ModelSerializer):
 class PermissionViewSet(MixinAPIView):
     serializer_class = PermissionSerializer
     model = Permission
-
-    @admin.api_permission('view')
-    def get(self, request, uuid=None, format=None):
-        return Response(self.get_serialiser_data_by_uuid(uuid))

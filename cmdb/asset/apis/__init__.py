@@ -1,6 +1,5 @@
-from asset import views
 from django.urls import include, path
-from asset import serializers
+from asset import views, serializers
 
 urlpatterns = [
     path('myassets', views.MyAssetsView, name='myassets'),
