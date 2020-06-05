@@ -10,7 +10,7 @@ class PermissionQuerySet(MixinQuerySet):
 
 
 class PermissionManager(UUIDManager):
-    pass
+    _queryset = PermissionQuerySet
 
 
 class Permission(MixinUUIDModel):

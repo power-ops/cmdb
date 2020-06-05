@@ -11,8 +11,7 @@ class AssetQuerySet(MixinQuerySet):
 
 
 class AssetManager(UUIDManager):
-    def get_queryset(self):
-        return AssetQuerySet(self.model, using=self._db)
+    _queryset = AssetQuerySet
 
 
 class Asset(MixinUUIDModel):

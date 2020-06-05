@@ -70,4 +70,4 @@ class MixinAPIView(APIView):
             if all:
                 return self.get_serialiser_data_by_uuid(uuid, all)
             else:
-                raise Http404
+                return self.serializer_class(None, many=True).data

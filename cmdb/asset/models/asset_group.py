@@ -9,7 +9,7 @@ class AssetGroupQuerySet(MixinQuerySet):
 
 
 class AssetGroupManager(UUIDManager):
-    pass
+    _queryset = AssetGroupQuerySet
 
 
 class AssetGroup(MixinUUIDModel):

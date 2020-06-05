@@ -7,6 +7,3 @@ class MixinQuerySet(models.QuerySet):
 
     def valid(self):
         return self.active()
-
-    def has_protocol(self, name):
-        return self.filter(protocols__contains=name)

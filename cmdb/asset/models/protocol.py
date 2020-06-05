@@ -8,7 +8,7 @@ class ProtocolQuerySet(MixinQuerySet):
 
 
 class ProtocolManager(UUIDManager):
-    pass
+    _queryset = ProtocolQuerySet
 
 
 class Protocol(MixinUUIDModel):

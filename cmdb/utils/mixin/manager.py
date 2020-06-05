@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.cache import cache
-from .query_set import MixinQuerySet
+from django.http import Http404
 
 
 class MixinManager(models.Manager):
@@ -10,7 +10,10 @@ class MixinManager(models.Manager):
         return self.get_queryset().filter(id=id).first()
 
     def get_queryset(self):
-        return MixinQuerySet(self.model, using=self._db)
+        if self._queryset:
+            return self._queryset(self.model, using=self._db)
+        else:
+            raise Http404
 
     def all(self):
         if self._cache_all_bypass:

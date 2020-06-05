@@ -10,6 +10,7 @@ class ApiLogQuerySet(MixinQuerySet):
 
 class ApiLogManager(MixinManager):
     _cache_all_bypass = True
+    _queryset = ApiLogQuerySet
 
 
 class ApiLog(MixinModel):

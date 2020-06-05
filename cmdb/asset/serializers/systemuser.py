@@ -23,6 +23,7 @@ class SystemUserViewSet(MixinAPIView):
 
     @admin.api_permission('view', 'asset.view_self_assets')
     def get(self, request, uuid=None, format=None):
+        print("ssss",self.model.objects.all())
         if request.user.has_perm(self._class_name + '.view_' + self._class_name):
             return Response(self.get_serialiser_data_by_uuid(uuid))
         elif request.user.has_perm('asset.view_self_assets'):

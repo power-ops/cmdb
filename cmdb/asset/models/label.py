@@ -8,7 +8,7 @@ class LabelQuerySet(MixinQuerySet):
 
 
 class LabelManager(UUIDManager):
-    pass
+    _queryset = LabelQuerySet
 
 
 class Label(MixinUUIDModel):

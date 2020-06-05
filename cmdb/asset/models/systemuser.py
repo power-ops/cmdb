@@ -9,7 +9,7 @@ class SystemUserQuerySet(models.QuerySet):
 
 
 class SystemUserManager(UUIDManager):
-    pass
+    _queryset = SystemUserQuerySet
 
 
 class SystemUser(MixinUUIDModel):
