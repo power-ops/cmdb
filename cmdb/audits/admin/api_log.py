@@ -1,19 +1,15 @@
 from django.contrib import admin
-from reversion.admin import VersionAdmin
-
 from audits import models
+from cmdb.mixin import MixinAdmin
 
 
-# Register your models here.
 @admin.register(models.ApiLog)
-class ApiLogAdmin(VersionAdmin):
+class ApiLogAdmin(MixinAdmin):
     list_display = ('User', 'Function', 'Class', 'SourceIP', 'StatusCode', 'CreateDate')
     list_filter = ('User', 'Function', 'Class', 'SourceIP', 'StatusCode')
     search_fields = ('User', 'Function', 'Class', 'SourceIP')
     # form = forms.AssetForm
     readonly_fields = ('CreateDate',)
-    list_per_page = 30
-    date_hierarchy = 'CreateDate'
     ordering = ('-id',)
 
     # fields = ['Hostname', 'IP', 'Protocols', 'Labels', 'Platform', 'Enabled', 'CreateDate']
