@@ -15,6 +15,7 @@ class Label(MixinUUIDModel):
     Name = models.CharField(max_length=128, verbose_name=_("Name"))
     Value = models.CharField(max_length=128, verbose_name=_("Value"))
     Comment = models.TextField(blank=True, null=True, verbose_name=_("Comment"))
+
     objects = LabelManager()
 
     def __str__(self):

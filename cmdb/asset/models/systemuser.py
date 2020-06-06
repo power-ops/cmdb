@@ -25,6 +25,10 @@ class SystemUser(MixinUUIDModel):
     def __str__(self):
         return self.Name
 
+    class Meta:
+        verbose_name = _('System User')
+        verbose_name_plural = _('System User')
+
     def update_password(self, password, safe=True):
         if safe:
             self.LastPassword = self.Password
@@ -56,10 +60,6 @@ class SystemUser(MixinUUIDModel):
             return ""
         else:
             return decrypt_ecb(self.Password)
-
-    class Meta:
-        verbose_name = _('System User')
-        verbose_name_plural = _('System User')
 
     # def save(self, *args, **kwargs):
     #     print(self)

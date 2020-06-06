@@ -29,6 +29,9 @@ class Asset(MixinUUIDModel):
 
     objects = AssetManager()
 
+    def __str__(self):
+        return self.Hostname + "-" + self.IP
+
     class Meta:
         verbose_name = _('Asset')
         verbose_name_plural = _('Asset')
@@ -38,9 +41,6 @@ class Asset(MixinUUIDModel):
         return [p.__str__() for p in self.Protocols.all()]
 
     get_protocols.short_description = _('Protocols')
-
-    def __str__(self):
-        return self.Hostname + "-" + self.IP
 
     def has_label(self, label):
         L = str.split(label, ":")

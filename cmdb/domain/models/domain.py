@@ -17,6 +17,7 @@ class MixinDomain(MixinUUIDModel):
     Status = models.CharField(max_length=128, verbose_name=_('Status'), null=True)
     DnsServer = models.TextField(verbose_name=_('DNS Server'), null=True)
     ExpireDate = models.DateTimeField(_('Expire Date'), null=True)
+
     objects = DomainManager()
 
     def __str__(self):
