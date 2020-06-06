@@ -12,11 +12,8 @@ class AssetAdmin(VersionAdmin):
     list_filter = ('Protocols', 'Labels', 'Platform')
     search_fields = ('Hostname', 'IP')
     form = forms.AssetForm
-    readonly_fields = ('CreateDate',)
     fields = ['Hostname', 'IP', 'Protocols', 'Labels', 'Platform', 'Enabled', 'CreateDate']
-    list_per_page = 30
     # list_editable = ('IP',)
-    date_hierarchy = 'CreateDate'
 
     def has_view_permission(self, request, obj=None):
         """

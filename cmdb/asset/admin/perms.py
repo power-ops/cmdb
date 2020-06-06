@@ -1,13 +1,10 @@
 from django.contrib import admin
 from asset import forms, models
-from reversion.admin import VersionAdmin
+from utils.mixin import MixinAdmin
 
 
 @admin.register(models.Permission)
-class PermsAdmin(VersionAdmin):
+class PermsAdmin(MixinAdmin):
     fields = ['Name', 'User', 'UserGroup', 'Asset', 'AssetGroup', 'SystemUser', 'Enabled', 'CreateDate']
-    readonly_fields = ['CreateDate']
     list_display = ['Name', 'Enabled', 'CreateDate']
     form = forms.PermsForm
-    list_per_page = 30
-    date_hierarchy = 'CreateDate'

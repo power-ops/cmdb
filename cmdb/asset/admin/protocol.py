@@ -1,37 +1,13 @@
 from django.contrib import admin
-from asset import forms, models
-from reversion.admin import VersionAdmin
-from django.contrib.auth import get_permission_codename
+from asset import models
 from asset.views import getSelfAssets
+from asset.mixin import MixinAdmin
 
 
 @admin.register(models.Protocol)
-class ProtocolAdmin(VersionAdmin):
+class ProtocolAdmin(MixinAdmin):
     fields = ['Name', 'Protocol', 'Port', 'Enabled', 'CreateDate']
-    readonly_fields = ['CreateDate']
     list_display = ['Name', 'Protocol', 'Port', 'Enabled', 'CreateDate']
-    list_per_page = 30
-    date_hierarchy = 'CreateDate'
-
-    def has_view_permission(self, request, obj=None):
-        """
-        Return True if the given request has permission to view the given
-        Django model instance. The default implementation doesn't examine the
-        `obj` parameter.
-
-        If overridden by the user in subclasses, it should return True if the
-        given request has permission to view the `obj` model instance. If `obj`
-        is None, it should return True if the request has permission to view
-        any object of the given type.
-        """
-        opts = self.opts
-        codename_view = get_permission_codename('view', opts)
-        codename_change = get_permission_codename('change', opts)
-        return (
-            request.user.has_perm('%s.%s' % (opts.app_label, codename_view)) or
-            request.user.has_perm('%s.%s' % (opts.app_label, codename_change)) or
-            request.user.has_perm('asset.view_self_assets')
-        )
 
     def get_queryset(self, request):
         """
