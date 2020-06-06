@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-05 15:10+0800\n"
+"POT-Creation-Date: 2020-06-06 10:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: asset/apps.py:7 asset/models/asset.py:34 asset/models/asset.py:35
+#: asset/apps.py:7 asset/models/asset.py:33 asset/models/asset.py:34
 msgid "Asset"
 msgstr "资产"
 
@@ -26,46 +26,46 @@ msgstr "资产"
 msgid "KeyFile"
 msgstr "密钥文件"
 
-#: asset/models/asset.py:19
+#: asset/models/asset.py:18
 msgid "IP"
 msgstr "IP"
 
-#: asset/models/asset.py:20
+#: asset/models/asset.py:19
 msgid "Hostname"
 msgstr "主机名"
 
-#: asset/models/asset.py:21 asset/models/protocol.py:16
+#: asset/models/asset.py:20 asset/models/protocol.py:16
 #: asset/models/protocol.py:25 asset/models/protocol.py:26
 #: asset/models/systemuser.py:21
 msgid "Protocol"
 msgstr "协议"
 
-#: asset/models/asset.py:23 asset/models/platform.py:34
+#: asset/models/asset.py:22 asset/models/platform.py:34
 #: asset/models/platform.py:35
 msgid "Platform"
 msgstr "平台"
 
-#: asset/models/asset.py:24
+#: asset/models/asset.py:23
 msgid "Public IP"
 msgstr "公网IP"
 
-#: asset/models/asset.py:25
+#: asset/models/asset.py:24
 msgid "Asset number"
 msgstr "资产号"
 
-#: asset/models/asset.py:27
+#: asset/models/asset.py:26
 msgid "Labels"
 msgstr "标签"
 
-#: asset/models/asset.py:28
+#: asset/models/asset.py:27
 msgid "Created by"
 msgstr "创建者"
 
-#: asset/models/asset.py:29 asset/models/label.py:17 asset/models/platform.py:8
+#: asset/models/asset.py:28 asset/models/label.py:17 asset/models/platform.py:8
 msgid "Comment"
 msgstr "备注"
 
-#: asset/models/asset.py:41
+#: asset/models/asset.py:40
 msgid "Protocols"
 msgstr "协议"
 
@@ -124,37 +124,37 @@ msgstr "系统用户"
 msgid "Audits"
 msgstr "审计"
 
-#: audits/models/api_log.py:16
+#: audits/models/api_log.py:17
 msgid "Class"
 msgstr "类"
 
-#: audits/models/api_log.py:17
+#: audits/models/api_log.py:18
 msgid "Function"
 msgstr "方法"
 
-#: audits/models/api_log.py:18
+#: audits/models/api_log.py:19
 msgid "User"
 msgstr "用户"
 
-#: audits/models/api_log.py:19
+#: audits/models/api_log.py:20
 msgid "Source IP"
 msgstr "源IP"
 
-#: audits/models/api_log.py:20
+#: audits/models/api_log.py:21
 msgid "URI"
 msgstr "URI"
 
-#: audits/models/api_log.py:21
+#: audits/models/api_log.py:22
 msgid "Status Code"
 msgstr "状态码"
 
-#: audits/models/api_log.py:27 audits/models/api_log.py:28
+#: audits/models/api_log.py:28 audits/models/api_log.py:29
 msgid "ApiLog"
 msgstr "API日志"
 
 #: certificate/apps.py:7
 msgid "Certificate"
-msgstr ""
+msgstr "证书"
 
 #: dns/apps.py:7
 msgid "DNS"
@@ -225,10 +225,10 @@ msgstr "盐"
 msgid "hash"
 msgstr "哈希"
 
-#: utils/mixin.py:9
+#: utils/mixin/model.py:9
 msgid "Enabled"
 msgstr "启用"
 
-#: utils/mixin.py:10
+#: utils/mixin/model.py:10
 msgid "Create Date"
 msgstr "创建日期"

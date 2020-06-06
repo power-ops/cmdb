@@ -8,7 +8,7 @@ class DomainQuerySet(MixinQuerySet):
 
 
 class DomainManager(UUIDManager):
-    pass
+    _queryset = DomainQuerySet
 
 
 class MixinDomain(MixinUUIDModel):

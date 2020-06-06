@@ -21,7 +21,8 @@ from .views import index
 
 api_urls = [
     path('asset/', include('asset.apis'), name='asset_api'),
-    path('domain/', include('domain.apis'), name='domain_api')
+    path('domain/', include('domain.apis'), name='domain_api'),
+    path('certificate/', include('certificate.apis'), name='certificate_api'),
 ]
 urlpatterns = [
     path('', index, name='index'),

@@ -3,7 +3,7 @@ from domain.models import Domain
 from utils.mixin import MixinAPIView
 
 
-class DomainSerializer(serializers.HyperlinkedModelSerializer):
+class DomainSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     CreateDate = serializers.CharField(read_only=True)
 

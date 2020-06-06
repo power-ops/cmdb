@@ -6,7 +6,7 @@ from asset.views import getSelfAssets
 from utils.mixin import MixinAPIView
 
 
-class AssetSerializer(serializers.HyperlinkedModelSerializer):
+class AssetSerializer(serializers.ModelSerializer):
     uuid = serializers.UUIDField(read_only=True)
     CreateDate = serializers.CharField(read_only=True)
 
