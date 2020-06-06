@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from asset.models import SystemUser
-from utils import admin
+from cmdb.utils import admin
 from rest_framework.response import Response
 from django.db.models import Q
 from asset.models import Permission

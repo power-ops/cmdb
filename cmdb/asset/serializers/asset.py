@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from asset.models import Asset
-from utils import admin
+from cmdb.utils import admin
 from rest_framework.response import Response
 from asset.views import getSelfAssets
 from cmdb.mixin import MixinAPIView

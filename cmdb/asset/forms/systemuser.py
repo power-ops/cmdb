@@ -1,6 +1,6 @@
 from django import forms
 from asset.models import SystemUser, Protocol
-from utils.password import encrypt_ecb
+from cmdb.utils import encrypt_ecb
 from django.utils.translation import ugettext_lazy as _
 
 

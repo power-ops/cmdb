@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from cmdb.mixin import MixinUUIDModel, UUIDManager
-from utils.password import decrypt_ecb
+from cmdb.utils import decrypt_ecb
 
 
 class SystemUserQuerySet(models.QuerySet):
