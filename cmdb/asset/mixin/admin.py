@@ -1,5 +1,5 @@
 from django.contrib.auth import get_permission_codename
-from utils.mixin import MixinAdmin as MA
+from cmdb.mixin import MixinAdmin as MA
 
 
 class MixinAdmin(MA):

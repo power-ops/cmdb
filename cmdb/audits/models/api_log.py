@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from utils.mixin import MixinQuerySet, MixinManager, MixinModel
+from cmdb.mixin import MixinQuerySet, MixinManager, MixinModel
 
 
 class ApiLogQuerySet(MixinQuerySet):

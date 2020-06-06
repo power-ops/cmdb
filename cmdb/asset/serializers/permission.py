@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from asset.models import Permission
-from utils.mixin import MixinAPIView
+from cmdb.mixin import MixinAPIView
 
 
 class PermissionSerializer(serializers.ModelSerializer):

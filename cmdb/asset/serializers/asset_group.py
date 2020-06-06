@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from django.db.models import Q
 from asset.models import Permission
 from django.core.cache import cache
-from utils.mixin import MixinAPIView
+from cmdb.mixin import MixinAPIView
 
 
 class AssetGroupSerializer(serializers.ModelSerializer):

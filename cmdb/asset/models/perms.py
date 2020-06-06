@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.utils.translation import ugettext_lazy as _
 from asset.models import Asset, SystemUser, AssetGroup
-from utils.mixin import MixinUUIDModel, UUIDManager, MixinQuerySet
+from cmdb.mixin import MixinUUIDModel, UUIDManager, MixinQuerySet
 
 
 class PermissionQuerySet(MixinQuerySet):

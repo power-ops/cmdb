@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from certificate.models import Domain
-from utils.mixin import MixinAPIView
+from cmdb.mixin import MixinAPIView
 
 
 class DomainSerializer(serializers.ModelSerializer):

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from utils.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
+from cmdb.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
 from .domain import Domain
 
 

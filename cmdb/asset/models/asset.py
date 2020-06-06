@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
+from cmdb.mixin import MixinUUIDModel, MixinQuerySet, UUIDManager
 from .protocol import Protocol
 from .platform import Platform
 from .label import Label

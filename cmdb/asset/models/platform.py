@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from utils.mixin import MixinUUIDModel
+from cmdb.mixin import MixinUUIDModel
 
 
 class Platform(MixinUUIDModel):

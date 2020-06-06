@@ -1,6 +1,6 @@
 from django.contrib import admin
 from asset import forms, models
-from utils.mixin import MixinAdmin
+from cmdb.mixin import MixinAdmin
 
 
 @admin.register(models.Permission)
