@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-06 10:01+0800\n"
+"POT-Creation-Date: 2020-06-06 11:05+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Asset"
 msgstr "资产"
 
-#: asset/forms/systemuser.py:10
+#: asset/forms/systemuser.py:10 certificate/forms/certificate.py:8
 msgid "KeyFile"
 msgstr "密钥文件"
 
@@ -72,7 +72,7 @@ msgstr "协议"
 #: asset/models/asset_group.py:16 asset/models/label.py:15
 #: asset/models/perms.py:17 asset/models/platform.py:7
 #: asset/models/protocol.py:15 asset/models/systemuser.py:16
-#: domain/models/domain.py:15
+#: certificate/models/certificate.py:16 domain/models/domain.py:15
 msgid "Name"
 msgstr "名称"
 
@@ -104,7 +104,7 @@ msgstr "端口"
 msgid "Username"
 msgstr "用户名"
 
-#: asset/models/systemuser.py:18
+#: asset/models/systemuser.py:18 certificate/models/certificate.py:18
 msgid "Password"
 msgstr "密码"
 
@@ -152,9 +152,44 @@ msgstr "状态码"
 msgid "ApiLog"
 msgstr "API日志"
 
-#: certificate/apps.py:7
+#: certificate/apps.py:7 certificate/models/certificate.py:27
+#: certificate/models/certificate.py:28
 msgid "Certificate"
 msgstr "证书"
+
+#: certificate/models/certificate.py:17 domain/apps.py:7
+#: domain/models/domain.py:16 domain/models/domain.py:26
+#: domain/models/domain.py:27
+msgid "Domain"
+msgstr "域名"
+
+#: certificate/models/certificate.py:19
+msgid "Cert"
+msgstr ""
+
+#: cmdb/mixin/model.py:9
+msgid "Enabled"
+msgstr "启用"
+
+#: cmdb/mixin/model.py:10
+msgid "Create Date"
+msgstr "创建日期"
+
+#: cmdb/utils/hashers.py:40
+msgid "algorithm"
+msgstr "算法"
+
+#: cmdb/utils/hashers.py:41
+msgid "iterations"
+msgstr "迭代次数"
+
+#: cmdb/utils/hashers.py:42
+msgid "salt"
+msgstr "盐"
+
+#: cmdb/utils/hashers.py:43
+msgid "hash"
+msgstr "哈希"
 
 #: dns/apps.py:7
 msgid "DNS"
@@ -192,11 +227,6 @@ msgstr "最后操作时间"
 msgid "Record"
 msgstr "解析记录"
 
-#: domain/apps.py:7 domain/models/domain.py:16 domain/models/domain.py:26
-#: domain/models/domain.py:27
-msgid "Domain"
-msgstr "域名"
-
 #: domain/models/domain.py:17
 msgid "Status"
 msgstr "状态"
@@ -209,26 +239,6 @@ msgstr "DNS主机"
 msgid "Expire Date"
 msgstr "过期时间"
 
-#: utils/hashers.py:40
-msgid "algorithm"
-msgstr "算法"
-
-#: utils/hashers.py:41
-msgid "iterations"
-msgstr "迭代次数"
-
-#: utils/hashers.py:42
-msgid "salt"
-msgstr "盐"
-
-#: utils/hashers.py:43
-msgid "hash"
-msgstr "哈希"
-
-#: utils/mixin/model.py:9
-msgid "Enabled"
-msgstr "启用"
-
-#: utils/mixin/model.py:10
-msgid "Create Date"
-msgstr "创建日期"
+#: worklink/apps.py:7
+msgid "Work Link"
+msgstr "工作链接"
