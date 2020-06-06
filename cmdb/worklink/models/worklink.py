@@ -14,6 +14,7 @@ class WorkLinkManager(UUIDManager):
 class WorkLink(MixinUUIDModel):
     Name = models.CharField(max_length=128, verbose_name=_("Name"))
     Link = models.CharField(max_length=1024, verbose_name=_("Link"))
+
     objects = WorkLinkManager()
 
     def __str__(self):
