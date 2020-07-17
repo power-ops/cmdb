@@ -1,3 +1,4 @@
+cmdb/data/
 test/
 */*/migrations/0*
 .idea/
@@ -55,7 +56,7 @@ coverage.xml
 .pytest_cache/
 
 # Translations
-*.mo
+#*.mo
 *.pot
 
 # Django stuff:

@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-09 18:48+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: user/apps.py:7 user/models/user.py:16 user/models/user.py:17
+msgid "User"
+msgstr "用户"
+
+#: user/forms/user.py:14 user/forms/user.py:17 user/forms/user.py:65
+#: user/forms/user.py:68 user/models/group.py:13 user/models/group.py:14
+msgid "User Group"
+msgstr "用户组"
+
+#: user/forms/user.py:23 user/forms/user.py:26 user/forms/user.py:74
+#: user/forms/user.py:77
+msgid "Permission"
+msgstr "权限"
+
+#: user/forms/user.py:28 user/forms/user.py:79
+msgid "Avatar"
+msgstr ""
+
+#: user/forms/user.py:45
+msgid "The two password fields didn’t match."
+msgstr ""
+
+#: user/forms/user.py:48
+msgid "Password"
+msgstr ""
+
+#: user/forms/user.py:55
+msgid "Password confirmation"
+msgstr ""
+
+#: user/forms/user.py:58
+msgid "Enter the same password as before, for verification."
+msgstr ""
+
+#: user/models/group.py:7
+msgid "Expire Date"
+msgstr "过期时间"

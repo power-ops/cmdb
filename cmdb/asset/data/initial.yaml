@@ -1,0 +1,49 @@
+- model: asset.platform
+  pk: 1
+  fields:
+    Enabled: true
+    CreateDate: 2020-07-09 12:49:20.666243+00:00
+    Name: Linux
+    Comment: ''
+- model: asset.platform
+  pk: 2
+  fields:
+    Enabled: true
+    CreateDate: 2020-07-09 12:49:20.666243+00:00
+    Name: Unix
+    Comment: ''
+- model: asset.platform
+  pk: 3
+  fields:
+    Enabled: true
+    CreateDate: 2020-07-09 12:49:20.666243+00:00
+    Name: Darwin
+    Comment: ''
+- model: asset.platform
+  pk: 4
+  fields:
+    Enabled: true
+    CreateDate: 2020-07-09 12:49:20.666243+00:00
+    Name: BSD
+    Comment: ''
+- model: asset.platform
+  pk: 5
+  fields:
+    Enabled: true
+    CreateDate: 2020-07-09 12:49:20.666243+00:00
+    Name: Windows
+    Comment: ''
+- model: asset.platform
+  pk: 6
+  fields:
+    Enabled: false
+    CreateDate: 2020-07-09 12:49:20.666243+00:00
+    Name: Workplace
+    Comment: ''
+- model: asset.platform
+  pk: 7
+  fields:
+    Enabled: true
+    CreateDate: 2020-07-09 12:49:20.666243+00:00
+    Name: Other
+    Comment: ''
