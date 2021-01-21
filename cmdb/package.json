@@ -22,7 +22,7 @@
     "jquery.easing": "^1.4.1",
     "moment": "^2.26.0",
     "popper.js": "^1.16.1",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "startbootstrap-sb-admin-2": "^4.0.7",
     "xterm": "^4.6.0"
   },
