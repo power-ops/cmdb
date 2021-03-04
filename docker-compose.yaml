@@ -3,6 +3,11 @@ services:
   service:
     image: example
     restart: on-failure
+    healthcheck:
+      test: curl localhost:8000
+      interval: 30s
+      timeout: 1s
+      retries: 1
     build:
       context: .
       dockerfile: Dockerfile
