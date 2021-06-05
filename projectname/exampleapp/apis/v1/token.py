@@ -49,6 +49,6 @@ class TokenView(MixinViewSet):
         if serializer.is_valid():
             reply = {"token": str(uuid.uuid4()), "success": True}
             return Response(reply, status=status.HTTP_200_OK)
-        if serializer.error_messages:
-            reply['message'] = serializer.error_messages
+        if serializer.errors:
+            reply['message'] = serializer.errors
         return Response(reply, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
