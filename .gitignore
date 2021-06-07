@@ -1,6 +1,6 @@
 .idea/
 .DS_Store
-projectname/config.ini
+cmdb/config.ini
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

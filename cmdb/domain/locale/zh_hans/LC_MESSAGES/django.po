@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-07 21:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: domain/apps.py:7 domain/forms/certificate.py:12
+#: domain/forms/certificate.py:18 domain/models/certificate.py:18
+#: domain/models/certificate.py:19 domain/models/certificate.py:42
+#: domain/models/domain.py:16 domain/models/domain.py:17
+#: domain/models/domain.py:32 domain/models/domain.py:33
+msgid "Domain"
+msgstr "域名"
+
+#: domain/forms/certificate.py:10
+msgid "KeyFile"
+msgstr "密钥"
+
+#: domain/forms/certificate.py:19 domain/models/certificate.py:21
+#: domain/models/domain.py:18
+msgid "Status"
+msgstr "状态"
+
+#: domain/forms/certificate.py:20 domain/models/certificate.py:23
+msgid "Password"
+msgstr "密码"
+
+#: domain/forms/certificate.py:21 domain/models/certificate.py:22
+#: domain/models/domain.py:19
+msgid "Expire Date"
+msgstr "过期时间"
+
+#: domain/models/certificate.py:16 domain/models/domain.py:15
+msgid "Name"
+msgstr "名称"
+
+#: domain/models/certificate.py:24
+msgid "Cert"
+msgstr "证书"
+
+#: domain/models/certificate.py:32 domain/models/certificate.py:33
+msgid "Certificate"
+msgstr "证书"
+
+#: domain/models/dns_record.py:18
+msgid "Prefix"
+msgstr "前缀"
+
+#: domain/models/dns_record.py:19
+msgid "Type"
+msgstr "类型"
+
+#: domain/models/dns_record.py:20
+msgid "Value"
+msgstr "记录值"
+
+#: domain/models/dns_record.py:21
+msgid "MX Priority"
+msgstr "MX优先级"
+
+#: domain/models/dns_record.py:22
+msgid "Circuit"
+msgstr "线路"
+
+#: domain/models/dns_record.py:23
+msgid "Weight"
+msgstr "权重"
+
+#: domain/models/dns_record.py:24
+msgid "TTL"
+msgstr "TTL"
+
+#: domain/models/dns_record.py:25
+msgid "Last Update"
+msgstr "最后操作时间"
+
+#: domain/models/dns_record.py:33 domain/models/dns_record.py:34
+msgid "DNS Record"
+msgstr "解析记录"
+
+#: domain/models/domain.py:21
+msgid "DNS Server"
+msgstr "DNS主机"

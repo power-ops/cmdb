@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-07 21:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: management/__init__.py:7 management/apps.py:7
+msgid "Management"
+msgstr "配置台"
+
+#: management/mixins/model.py:9
+msgid "Enabled"
+msgstr "启用"
+
+#: management/mixins/model.py:10 management/models/api_log.py:47
+msgid "Create Date"
+msgstr "创建日期"
+
+#: management/models/api_log.py:41
+msgid "Class"
+msgstr "类"
+
+#: management/models/api_log.py:42
+msgid "Function"
+msgstr "方法"
+
+#: management/models/api_log.py:43
+msgid "User"
+msgstr "用户"
+
+#: management/models/api_log.py:44
+msgid "Source IP"
+msgstr "源IP"
+
+#: management/models/api_log.py:45
+msgid "URI"
+msgstr "URI"
+
+#: management/models/api_log.py:46
+msgid "Status Code"
+msgstr "状态码"
+
+#: management/models/api_log.py:53 management/models/api_log.py:54
+msgid "ApiLog"
+msgstr "API日志"
+
+#: management/models/settings.py:16
+msgid "Name"
+msgstr "名称"
+
+#: management/models/settings.py:17
+msgid "Configuration"
+msgstr "配置"
+
+#: management/models/settings.py:22 management/models/settings.py:23
+msgid "Settings"
+msgstr "设置"
+
+#: management/utils/hashers.py:40
+msgid "algorithm"
+msgstr "算法"
+
+#: management/utils/hashers.py:41
+msgid "iterations"
+msgstr "迭代次数"
+
+#: management/utils/hashers.py:42
+msgid "salt"
+msgstr "盐"
+
+#: management/utils/hashers.py:43
+msgid "hash"
+msgstr "哈希"
