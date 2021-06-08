@@ -1,5 +1,6 @@
 INSTALLED_APPS += [
     'asset',
     'domain',
-    'user'
+    'user',
+    'jump'
 ]
