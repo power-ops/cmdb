@@ -1,5 +1,15 @@
-# Django Project Template
-This project aim to start a Django project quickly and with more functionality.
+# cmdb
+鉴于新密码法的要求以及国家安全考虑，本项目采用国密算法作为默认加密算法。
 
-# LICENSE
-The license is under MIT LICENSE, please have fun!
+This project want to be a powerful cmdb.
+
+
+# Feture
+
+- [ ] 堡垒机插件
+- [ ] AWX 集成
+- [ ] Saltstack 集成
+- [ ] Jenkins 集成
+- [ ] 监控插件, Cacti, Nagios, 等
+- [ ] Keycloak 集成
+- [ ] Elasticsearch 集成

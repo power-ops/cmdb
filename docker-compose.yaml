@@ -1,7 +1,7 @@
 version: '3'
 services:
   service:
-    image: example
+    image: cmdb
     restart: on-failure
     healthcheck:
       test: curl localhost:8000
